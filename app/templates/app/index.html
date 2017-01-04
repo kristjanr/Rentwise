@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged in!</title>
+</head>
+<body>
+People who have signed up
+<table class="table table-striped">
+    <thead>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Open FB profile page to chat</th>
+    </thead>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td><a href="https://www.facebook.com/{{ user.profile.facebook_id }}">https://www.facebook.com/{{ user.profile.facebook_id }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
