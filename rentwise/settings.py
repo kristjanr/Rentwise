@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 import dj_database_url
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse_lazy
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -140,7 +139,7 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '4ff6ba0463f68543fc8743094f8ffc7a'
 # These URLs are used on different steps of the auth process, some for successful results and others for
 # error situations.
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged-in'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('signed-up-users')
 # Used to redirect the user once the auth process ended successfully. The value of ?next=/foo is used if it was present
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
@@ -171,3 +170,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
 )
+
+# LOGIN_REDIRECT_URL = reverse_lazy('signed-up-users')
+LOGIN_URL = reverse_lazy('index')
