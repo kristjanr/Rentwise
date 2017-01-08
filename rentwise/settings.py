@@ -30,6 +30,7 @@ DEBUG = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'app',
+    'pinax_theme_bootstrap',
+    'bootstrapform',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -72,6 +75,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'pinax_theme_bootstrap.context_processors.theme',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
@@ -133,15 +137,20 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+SITE_ID = '1'
+
 SOCIAL_AUTH_FACEBOOK_KEY = '191007684701647'
 SOCIAL_AUTH_FACEBOOK_SECRET = '4ff6ba0463f68543fc8743094f8ffc7a'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile', ]
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture'}
 
+# LOGIN_REDIRECT_URL = reverse_lazy('signed-up-users')
+LOGIN_URL = reverse_lazy('home')
+
 # These URLs are used on different steps of the auth process, some for successful results and others for
 # error situations.
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('signed-up-users')
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('home')
 # Used to redirect the user once the auth process ended successfully. The value of ?next=/foo is used if it was present
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
@@ -173,5 +182,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
 )
 
-# LOGIN_REDIRECT_URL = reverse_lazy('signed-up-users')
-LOGIN_URL = reverse_lazy('index')
+
+MIGRATION_MODULES = {
+    'sites': 'rentwise.migrations.sites',
+}

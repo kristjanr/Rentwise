@@ -1,0 +1,45 @@
+{% extends "site_base.html" %}
+{% block head_title %}Home{% endblock %}
+
+{% block nav %}
+<ul class="nav navbar-nav ">
+    <li>
+        <a href="#how-it-works">How it works</a>
+    </li>
+    {% include "nav_block_common.html" %}
+</ul>
+{% endblock %}
+
+{% block body %}
+
+<div class="content-section-a">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6" id="how-it-works">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">How it works?</h2><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pulvinar felis vitae felis
+                sagittis condimentum. Cras pharetra, mauris eget dignissim finibus, turpis lectus fringilla diam, eget
+                pretium ligula metus rutrum tellus. Nulla scelerisque condimentum lectus a luctus. Phasellus justo odio,
+                faucibus a felis eu, sodales gravida augue. Nullam vel sem ac quam iaculis congue quis a ex. Aliquam non
+                volutpat ante.
+            </div>
+        </div>
+        {% if not request.user.is_authenticated %}
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <a href="/login/facebook">Sign In with Facebook</a>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

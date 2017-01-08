@@ -9,8 +9,14 @@ class Profile(models.Model):
     facebook_id = models.TextField(max_length=500)
     picture_url = models.TextField(max_length=500)
 
+    @property
+    def facebook_url(self):
+        return 'https://www.facebook.com/%s/' % self.facebook_id
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+

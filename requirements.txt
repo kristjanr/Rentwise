@@ -13,3 +13,4 @@ six==1.10.0
 social-auth-app-django==0.1.0
 social-auth-core==0.2.1
 whitenoise==3.2
+pinax_theme_bootstrap
