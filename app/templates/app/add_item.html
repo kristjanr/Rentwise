@@ -2,6 +2,25 @@
 {% block head_title %}Rent out your items{% endblock %}
 
 {% block body %}
+<div class="container">
+    <div id="content">
+        TODO:
+        1) upload images
+        2) make categories selection nicer
+        3) normal sized fields
+        4) information buttons
+        <form method="post"><br>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form }}
+            <input type="submit" class="btn btn-success" value="Save" name="submit">
+        </form>
+
+    </div>
+
+
+</div>
 
 
 {% endblock %}
+

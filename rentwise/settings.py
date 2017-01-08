@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app',
     'pinax_theme_bootstrap',
     'bootstrapform',
+    'djplaces',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -186,3 +187,5 @@ SOCIAL_AUTH_PIPELINE = (
 MIGRATION_MODULES = {
     'sites': 'rentwise.migrations.sites',
 }
+
+MAPS_API_KEY = 'AIzaSyCn_Tc8zAWwsTmDgYmZLfuSGX2VyGN0OEo'

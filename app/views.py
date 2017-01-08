@@ -2,6 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
+from app.forms import ItemForm
+from app.models import Item
+
 
 def home(request):
     return render(request, 'app/index.html')
@@ -37,4 +40,17 @@ def save_profile(backend, user, response, *args, **kwargs):
 
 @login_required
 def add_item(request):
-    return render(request, 'app/add_item.html')
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            item_data = form.cleaned_data
+            item_data['profile'] = request.user.profile
+            categories = item_data.pop('categories')
+            item = Item(**item_data)
+            item.save()
+            item.categories = categories
+            item.save()
+
+    form = ItemForm()
+
+    return render(request, 'app/add_item.html', {'form': form})
