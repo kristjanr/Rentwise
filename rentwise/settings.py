@@ -135,6 +135,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '191007684701647'
 SOCIAL_AUTH_FACEBOOK_SECRET = '4ff6ba0463f68543fc8743094f8ffc7a'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile', ]
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture'}
 
 # These URLs are used on different steps of the auth process, some for successful results and others for
 # error situations.

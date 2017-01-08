@@ -10,12 +10,16 @@ People who have signed up
     <thead>
     <th>First Name</th>
     <th>Last Name</th>
+    <th>E-mail</th>
+    <th>picture url</th>
     <th>Open FB profile page to chat</th>
     </thead>
     {% for user in users %}
     <tr>
         <td>{{ user.first_name }}</td>
         <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td><a href="{{ user.profile.picture_url }}">{{ user.profile.picture_url }}</a></td>
         <td><a href="https://www.facebook.com/{{ user.profile.facebook_id }}">https://www.facebook.com/{{ user.profile.facebook_id }}</a></td>
     </tr>
     {% endfor %}
