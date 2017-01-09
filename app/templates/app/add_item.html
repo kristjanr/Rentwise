@@ -2,10 +2,11 @@
 {% block head_title %}Rent out your items{% endblock %}
 {% block extrahead %}
 
-<script >
+<script>
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
 </script>
 {% endblock %}
 
@@ -15,13 +16,12 @@ $(function () {
         TODO:
         1) upload images
         2) Redirect to this Item's detail view after saving (Owner can delete this Item)
-        <form method="post" id="add-item"><br>
+        <form action="{% url 'add_item' %}" method="post" id="add-item"><br>
             {% csrf_token %}
             {{ form.non_field_errors }}
             {{ form }}
-            <input type="submit" class="btn btn-success" value="Save" name="submit">
+            <input type="submit" class="btn btn-success" value="Save & Next" name="submit">
         </form>
-
     </div>
 </div>
 

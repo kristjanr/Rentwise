@@ -14,6 +14,8 @@ import os
 import dj_database_url
 from django.urls import reverse_lazy
 
+from app.varia import path_filename
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'pinax_theme_bootstrap',
     'bootstrapform',
     'djplaces',
+    's3direct',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -177,15 +180,52 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     'social.pipeline.user.create_user',
-    'app.views.save_profile',
+    'app.varia.save_profile',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
 )
-
 
 MIGRATION_MODULES = {
     'sites': 'rentwise.migrations.sites',
 }
 
 MAPS_API_KEY = 'AIzaSyCn_Tc8zAWwsTmDgYmZLfuSGX2VyGN0OEo'
+
+# AWS keys
+AWS_SECRET_ACCESS_KEY = '4cr2LSorfsSRznLKp3gVu9A9AdNg53oVd/elHJGA'
+AWS_ACCESS_KEY_ID = 'AKIAJQIO7VQFYZF7MKSA'
+AWS_STORAGE_BUCKET_NAME = 'ybuy'
+
+# The region of your bucket, more info:
+# http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+S3DIRECT_REGION = 'eu-west-2'
+
+# Destinations, with the following keys:
+#
+# key [required] Where to upload the file to, can be either:
+#     1. '/' = Upload to root with the original filename.
+#     2. 'some/path' = Upload to some/path with the original filename.
+#     3. functionName = Pass a function and create your own path/filename.
+# auth [optional] An ACL function to whether the current Django user can perform this action.
+# allowed [optional] List of allowed MIME types.
+# acl [optional] Give the object another ACL rather than 'public-read'.
+# cache_control [optional] Cache control headers, eg 'max-age=2592000'.
+# content_disposition [optional] Useful for sending files as attachments.
+# bucket [optional] Specify a different bucket for this particular object.
+# server_side_encryption [optional] Encryption headers for buckets that require it.
+
+S3DIRECT_DESTINATIONS = {
+    'images_destination': {
+        # REQUIRED
+        'key': path_filename,
+
+        # OPTIONAL
+        'auth': lambda u: u.is_authenticated,  # Default allow anybody to upload
+        'allowed': ['image/jpeg', 'image/png', 'image/gif', ],
+        'cache_control': 'max-age=2592000',  # Default no cache-control
+        'content_disposition': 'attachment',  # Default no content disposition
+        'content_length_range': (5000, 20000000),  # Default allow any size
+    }
+}
+S3DIRECT_URL_STRUCTURE = 'https://{1}.{0}'

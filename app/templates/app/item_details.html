@@ -1,0 +1,111 @@
+{% extends "site_base.html" %}
+{% block head_title %}Rent out your items{% endblock %}
+
+{% block body %}
+<div class="col-xs-12 form-horizontal">
+
+    <div class="row">
+        <label class="col-sm-4 control-label">name</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.name }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">description</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.description }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">categories</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">
+                {% for category in item.categories.all %}
+                {{ category}},
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">price_per_day</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.price_per_day }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">minimum_rental_period</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.minimum_rental_period }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">estimated_value</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.estimated_value }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">place</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.place }}</p>
+        </div>
+    </div>
+
+    {% if request.user.is_staff %}
+    <div class="row">
+        <label class="col-sm-4 control-label">user</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.user }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-4 control-label">user fb profile</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.user.profile.facebook_url }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-4 control-label">user email</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.user.email }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if request.user == item.user or request.user.is_staff %}
+    <div class="row">
+        <label class="col-sm-4 control-label">controls</label>
+        <div class="col-sm-8">
+            {% if request.user.is_staff %}
+            <div class="col-sm-2">
+                <form action="{% url 'publish_item' pk=item.id%}" method="post" id="publish-item"><br>
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-success" value="Publish" name="submit">
+                </form>
+            </div>
+            <div class="col-sm-2">
+                <form action="{% url 'unpublish_item' pk=item.id%}" method="post" id="unpublish-item"><br>
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-warning" value="Unpublish" name="submit">
+                </form>
+            </div>
+            {% endif %}
+            <div class="col-sm-2">
+                <form action="{% url 'delete_item' pk=item.id%}" method="post" id="delete-item"><br>
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-error" value="Delete" name="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+

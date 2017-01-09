@@ -20,5 +20,5 @@ urlpatterns = [
     url(r'^', include('app.urls')),
     url(r'^admin/', admin.site.urls),
     url('', include('social_django.urls')),
-
+    url(r'^s3direct/', include('s3direct.urls')),
 ]
