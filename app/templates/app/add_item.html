@@ -1,36 +1,43 @@
 {% extends "site_base.html" %}
 {% block head_title %}Rent out your items{% endblock %}
+{% block extrahead %}
+<style xmlns="http://www.w3.org/1999/html">
+#id_categories {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#id_categories > * {
+    float: left;
+    text-align: center;
+    padding: 25px;
+    display: block;
+}
+#id_categories input {
+    width: 15px;
+    height: 15px;
+}
+</style>
+<script >
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+{% endblock %}
 
 {% block body %}
 <div class="container">
     <div id="content">
         TODO:
         1) upload images
-        2) make categories selection nicer
-        3) normal sized fields
-        4) information buttons
-        5) Redirect to this Item's detail view (Owner can delete this Item)
+        2) normal sized fields
+        3) Redirect to this Item's detail view (Owner can delete this Item)
         <form method="post"><br>
             {% csrf_token %}
             {{ form.non_field_errors }}
-            {% for field in form %}
-                <div class="col-xs-12">
-                    <div class="control-label col-xs-2">
-                        {{ field.label_tag }}
-                    </div>
-                    <div class="col-xs-8">
-                        {{ field }}
-                    </div>
-                    <div class="col-xs-2">
-                        {{ field.errors }}
-                    </div>
-                    {% if field.help_text %}
-                        <p class="help">{{ field.help_text|safe }}</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
-
-            <input type="submit" class="btn btn-success" value="Save" name="submit">
+            {{ form }}
+            <input type="submit" class="btn btn-success" value="Save" name="submit" title="foobar tootlit">
         </form>
 
     </div>

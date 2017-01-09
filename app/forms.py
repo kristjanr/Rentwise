@@ -29,3 +29,6 @@ class ItemForm(MyForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['location'].widget.attrs['readonly'] = True
+        for f in self.fields.values():
+            w = f.widget
+            w.attrs.update({'title': 'tooltip text'})
