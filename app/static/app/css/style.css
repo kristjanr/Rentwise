@@ -1,0 +1,25 @@
+#id_price_per_day {
+    width: 100px;
+}
+#id_minimum_rental_period {
+    width: 100px;
+}
+#id_estimated_value {
+    width: 100px;
+}
+#id_categories {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#id_categories > * {
+    float: left;
+    text-align: center;
+    padding: 15px;
+    display: block;
+}
+#id_categories input {
+    width: 15px;
+    height: 15px;
+}

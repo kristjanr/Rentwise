@@ -2,7 +2,7 @@
 {% block head_title %}Home{% endblock %}
 
 {% block nav %}
-<ul class="nav navbar-nav ">
+<ul class="nav navbar-nav navbar-right">
     <li>
         <a href="#how-it-works">How it works</a>
     </li>
@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 col-sm-6" id="how-it-works">
+            <div class="col-xs-12 col-sm-8 col-md-6" id="how-it-works">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">How it works?</h2><br>
@@ -29,10 +29,12 @@
         </div>
         {% if not request.user.is_authenticated %}
         <div class="row">
-            <div class="col-lg-5 col-sm-6">
+            <div class="col-xs-3">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
-                <a href="/login/facebook">Sign In with Facebook</a>
+                <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span> Sign in with Facebook
+                </a>
             </div>
         </div>
 

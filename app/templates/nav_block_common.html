@@ -1,12 +1,19 @@
 <li>
     <a href="#contact">Contact</a>
 </li>
-
 {% if request.user.is_authenticated %}
 <li>
     <a href="{% url 'add_item' %}">Rent out your items</a>
 </li>
 <li>
     <a href="{{ request.user.profile.facebook_url }}" target="_blank"><img src="{{ request.user.profile.picture_url }}"></a>
+</li>
+{% else %}
+<li>
+    <div style="padding: 15px; padding-top: 10px;">
+        <a href="/login/facebook" class="btn btn-social-icon btn-facebook" style="">
+            <span class="fa fa-facebook"></span>
+        </a>
+    </div>
 </li>
 {% endif %}
