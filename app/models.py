@@ -14,6 +14,9 @@ class Profile(models.Model):
     def facebook_url(self):
         return 'https://www.facebook.com/%s/' % self.facebook_id
 
+    def __str__(self):
+        return self.user.__str__()
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -39,3 +42,6 @@ class Item(models.Model):
     estimated_value = models.DecimalField(verbose_name='estimated value (£)', max_digits=8, decimal_places=2)
     place = models.CharField(max_length=250)
     location = LocationField(base_field='place')
+
+    def __str__(self):
+        return self.name
