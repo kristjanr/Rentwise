@@ -1,6 +1,6 @@
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -10,13 +10,6 @@ from django.views.generic.edit import DeleteView
 
 from app.models import Item, Image
 from .forms import S3DirectUploadForm, ItemForm
-
-
-@login_required
-def signed_up_users(request):
-    users = User.objects.all()
-    context = dict(users=users)
-    return render(request, 'app/users.html', context=context)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -110,3 +103,8 @@ def unpublish_item(request, *args, **kwargs):
     item.published = False
     item.save()
     return redirect('view_item', item.id)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')

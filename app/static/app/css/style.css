@@ -23,3 +23,7 @@
     width: 15px;
     height: 15px;
 }
+body {
+    padding-top: 85px;
+/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}

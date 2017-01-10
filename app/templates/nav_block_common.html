@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <li>
     <a href="#contact">Contact</a>
 </li>
@@ -8,12 +9,11 @@
 <li>
     <a href="{{ request.user.profile.facebook_url }}" target="_blank"><img src="{{ request.user.profile.picture_url }}"></a>
 </li>
+<li>
+    <a href="/logout/facebook"><img src="{% static 'app/images/fb_log_out.png' %}" height="25"></a>
+</li>
 {% else %}
 <li>
-    <div style="padding: 15px; padding-top: 10px;">
-        <a href="/login/facebook" class="btn btn-social-icon btn-facebook" style="">
-            <span class="fa fa-facebook"></span>
-        </a>
-    </div>
+    <a href="/login/facebook"><img src="{% static 'app/images/fb_log_in.png' %}" height="25"></a>
 </li>
 {% endif %}
