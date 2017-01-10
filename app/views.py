@@ -78,11 +78,11 @@ class ItemDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        distance_in_miles = distance(self.request.user.profile.location, self.object.location).miles
-        data = dict(distance=distance_in_miles)
+        if self.request.user.profile.location:
+            distance_in_miles = distance(self.request.user.profile.location, self.object.location).miles
+            context['distance'] = distance_in_miles
         if self.request.GET.get('new'):
-            data['new'] = self.request.GET['new'] == 'true'
-        context.update(data)
+            context['new'] = self.request.GET['new'] == 'true'
         return context
 
 

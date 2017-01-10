@@ -81,14 +81,14 @@
             <p class="form-control-static">{{ item.place }}</p>
         </div>
     </div>
-
+    {% if distance %}
     <div class="row">
         <label class="col-sm-4 control-label">distance to you</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ distance|floatformat:2 }} miles</p>
         </div>
     </div>
-
+    {% endif %}
     <div class="row">
         <label class="col-xs-4 control-label"></label>
         <div class="col-xs-8">
