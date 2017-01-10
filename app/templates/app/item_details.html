@@ -3,7 +3,11 @@
 
 {% block body %}
 <div class="col-xs-12 form-horizontal">
-
+    {% if request.user == item.user and not item.published and new == True %}
+    <div class="row">
+        <p class="text-center">Your ad is sucessfully uploaded! {{ pk }} It is unpublished and under review. It will be published and will appear in search results within 24 hours after you added it.</p>
+    </div>
+    {% endif %}
     <div class="row">
         <label class="col-sm-4 control-label">name</label>
         <div class="col-sm-8">
@@ -80,6 +84,13 @@
 
     {% if request.user == item.user or request.user.is_staff %}
     <div class="row">
+        <label class="col-sm-4 control-label">Published</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.published }}</p>
+        </div>
+    </div>
+
+    <div class="row">
         <label class="col-sm-4 control-label">controls</label>
         <div class="col-sm-8">
             {% if request.user.is_staff %}
@@ -96,6 +107,7 @@
                 </form>
             </div>
             {% endif %}
+
             <div class="col-sm-2">
                 <form action="{% url 'delete_item' pk=item.id%}" method="post" id="delete-item"><br>
                     {% csrf_token %}

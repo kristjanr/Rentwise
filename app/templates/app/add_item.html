@@ -13,15 +13,24 @@ $(function () {
 {% block body %}
 <div class="container">
     <div id="content" class="col-xs-12 col-sm-8 col-md-8">
-        TODO:
-        1) upload images
-        2) Redirect to this Item's detail view after saving (Owner can delete this Item)
-        <form action="{% url 'add_item' %}" method="post" id="add-item"><br>
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            {{ form }}
-            <input type="submit" class="btn btn-success" value="Save & Next" name="submit">
-        </form>
+        <div class="row">
+            <hr class="section-heading-spacer">
+            <div class="clearfix"></div>
+            <h2 class="section-heading">Description of the process</h2><br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pulvinar felis vitae felis
+            sagittis condimentum. Cras pharetra, mauris eget dignissim finibus, turpis lectus fringilla diam, eget
+            pretium ligula metus rutrum tellus. Nulla scelerisque condimentum lectus a luctus. Phasellus justo odio,
+            faucibus a felis eu, sodales gravida augue. Nullam vel sem ac quam iaculis congue quis a ex. Aliquam non
+            volutpat ante.
+        </div>
+        <div class="row">
+            <form action="{% url 'add_item' %}" method="post" id="add-item"><br>
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {{ form }}
+                <input type="submit" class="btn btn-success" value="Save & Next" name="submit">
+            </form>
+        </div>
     </div>
 </div>
 
