@@ -5,6 +5,8 @@
 <link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="{% static 'app/js/run_jcarousel.js' %}" defer></script>
+
 {% endblock %}
 
 {% block nav %}
@@ -17,8 +19,6 @@
 {% endblock %}
 
 {% block body %}
-<script type="text/javascript" src="{% static 'app/js/run_jcarousel.js' %}" defer></script>
-
 <div class="content-section-a">
     <div class="container center">
         <div class="row">
@@ -49,6 +49,16 @@
                 volutpat ante.
             </div>
         </div>
+        {% if not request.user.is_authenticated %}
+        <div class="row">
+            <hr class="section-heading-spacer">
+            <div class="col-xs-3 center">
+                <div class="clearfix"></div>
+                <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span>Log in with Facebook</a>
+            </div>
+        </div>
+        {% endif %}
         <div class="row">
             <div class="center text-center" id="statistics">
                 <hr class="section-heading-spacer">
@@ -58,17 +68,6 @@
                 <p>Total number of deals done: {{ fb_profile_clicks }}</p>
             </div>
         </div>
-        {% if not request.user.is_authenticated %}
-        <div class="row">
-            <div class="col-xs-3 center">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
-                    <span class="fa fa-facebook"></span>Log in with Facebook</a>
-            </div>
-        </div>
-
-        {% endif %}
     </div>
 </div>
 

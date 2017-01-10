@@ -1,13 +1,34 @@
 {% extends "site_base.html" %}
+{% load staticfiles %}
 {% block head_title %}Rent out your items{% endblock %}
+{% block extrahead %}
+<link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="{% static 'app/js/run_jcarousel.js' %}" defer></script>
 
+{% endblock %}
 {% block body %}
 <div class="col-xs-12 form-horizontal">
     {% if request.user == item.user and not item.published and new == True %}
     <div class="row">
-        <p class="text-center">Your ad is sucessfully uploaded! {{ pk }} It is unpublished and under review. It will be published and will appear in search results within 24 hours after you added it.</p>
+        <p class="text-center">Your ad is sucessfully uploaded! {{ pk }} It is unpublished and under review. It will be
+            published and will appear in search results within 24 hours after you added it.</p>
     </div>
     {% endif %}
+    <div class="row">
+        <div class="jcarousel-wrapper">
+            <div class="jcarousel">
+                <ul style="left: 0px; top: 0px;">
+                    {% for image in item.image_set.all %}
+                    <li><img src="{{ image.url }}" width="600px" height="400">
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+            <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+        </div>
+    </div>
     <div class="row">
         <label class="col-sm-4 control-label">name</label>
         <div class="col-sm-8">
