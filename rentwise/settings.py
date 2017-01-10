@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'djplaces',
     's3direct',
+    'django_tables2',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -147,25 +148,25 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '4ff6ba0463f68543fc8743094f8ffc7a'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile', ]
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture'}
 
-# LOGIN_REDIRECT_URL = reverse_lazy('signed-up-users')
+LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGIN_URL = reverse_lazy('home')
 
 # These URLs are used on different steps of the auth process, some for successful results and others for
 # error situations.
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('home')
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('home')
 # Used to redirect the user once the auth process ended successfully. The value of ?next=/foo is used if it was present
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 # URL where the user will be redirected in case of an error
 
-SOCIAL_AUTH_LOGIN_URL = '/login-url/'
+# SOCIAL_AUTH_LOGIN_URL = '/login-url/'
 # Is used as a fallback for LOGIN_ERROR_URL
 
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
 # The user will be redirected to this URL when a social account is disconnected
 
-SOCIAL_AUTH_INACTIVE_USER_URL = '/inactive-user/'
+# SOCIAL_AUTH_INACTIVE_USER_URL = '/inactive-user/'
 # Inactive users can be redirected to this URL when trying to authenticate.
 
 SOCIAL_AUTH_USER_MODEL = 'auth.User'

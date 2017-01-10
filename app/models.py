@@ -36,18 +36,6 @@ class Category(models.Model):
         return self.name
 
 
-#
-# Item details:
-# categories;
-# Item name (5 characters minimum, 100 characters maximum);
-# description (20 characters minimum, 5000 characters maximum),
-# price per day (capped at 5000, only numerical and positive values allowed);
-# minimum rental period (minimum 1, maximum 500, only numerical, positive and whole values allowed);
-# estimated value (only numerical and positive values allowed);
-# location (through Google Maps API);
-# images (minimum 1, maximum 10);
-# tooltips for all fields, which will be hovering over the input boxes when the User’s cursor is on the field and
-# describe the purpose and desired input of the specific fields.
 positive_decimal = MinValueValidator(Decimal('0.01'))
 min_1 = MinValueValidator(1)
 max_500 = MaxValueValidator(500)
@@ -79,8 +67,13 @@ class Item(models.Model):
 
     published = models.BooleanField(default=False)
 
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Added on')
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return "/item/%i/" % self.id
 
 
 class Image(models.Model):

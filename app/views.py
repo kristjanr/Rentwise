@@ -7,9 +7,11 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic.edit import DeleteView
+from django_tables2 import RequestConfig
 from geopy.distance import distance
 
 from app.models import Item, Image
+from app.tables import ItemTable
 from app.varia import send_emails
 from .forms import S3DirectUploadForm, ItemForm, ProfileLocationForm
 
@@ -17,9 +19,21 @@ from .forms import S3DirectUploadForm, ItemForm, ProfileLocationForm
 def home(request):
     published_items = Item.objects.filter(published=True).count()
     fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
-    data = dict(place=request.user.profile.place, location=request.user.profile.location)
-    form = ProfileLocationForm(data) if data['place'] else ProfileLocationForm()
-    context = dict(published_items=published_items, fb_profile_clicks=fb_profile_clicks, form=form)
+
+    if hasattr(request.user, 'profile') and request.user.profile.place:
+        form_data = dict(place=request.user.profile.place, location=request.user.profile.location)
+        form = ProfileLocationForm(form_data)
+    else:
+        form = ProfileLocationForm()
+
+    table = ItemTable(Item.objects.filter(published=True))
+    RequestConfig(request).configure(table)
+    context = dict(
+        published_items=published_items,
+        fb_profile_clicks=fb_profile_clicks,
+        form=form,
+        table=table,
+    )
     return render(request, 'app/index.html', context)
 
 

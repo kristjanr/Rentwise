@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
+{% load render_table from django_tables2 %}
 {% block head_title %}Home{% endblock %}
 {% block extrahead %}
 <link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
@@ -79,6 +80,14 @@
                     {{ form }}
                     <input type="submit" class="btn btn-success" value="Set My Location" name="submit">
                 </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 form-horizontal">
+                <h3>All Items</h3>
+                {% if table %}
+                    {% render_table table %}
+                {% endif %}
             </div>
         </div>
     </div>
