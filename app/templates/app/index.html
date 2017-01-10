@@ -1,5 +1,11 @@
 {% extends "site_base.html" %}
+{% load staticfiles %}
 {% block head_title %}Home{% endblock %}
+{% block extrahead %}
+<link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
+{% endblock %}
 
 {% block nav %}
 <ul class="nav navbar-nav navbar-right">
@@ -11,10 +17,28 @@
 {% endblock %}
 
 {% block body %}
+<script type="text/javascript" src="{% static 'app/js/run_jcarousel.js' %}" defer></script>
+
 <div class="content-section-a">
-    <div class="container">
+    <div class="container center">
         <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-6" id="how-it-works">
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul style="left: 0px; top: 0px;">
+                        <li><img src="{% static 'app/images/first.jpg' %}" width="600px" height="400">
+                            <p>First image text</p></li>
+                        <li><img src="{% static 'app/images/second.jpg' %}" width="600px" height="400">
+                            <p>Second image text</p></li>
+                        <li><img src="{% static 'app/images/third.jpg' %}" width="600px" height="400">
+                            <p>Third image text</p></li>
+                    </ul>
+                </div>
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="center text-center" id="how-it-works">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">How it works?</h2><br>
@@ -26,7 +50,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-6" id="statistics">
+            <div class="center text-center" id="statistics">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">Statistics</h2><br>
@@ -36,7 +60,7 @@
         </div>
         {% if not request.user.is_authenticated %}
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-3 center">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
