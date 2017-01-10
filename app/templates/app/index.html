@@ -72,8 +72,8 @@
             </div>
         </div>
         <div class="row">
+            <hr class="section-heading-spacer">
             <div class="col-xs-12 col-md-8" id="location-form">
-                <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">Please Enter Your location</h2><br>
                 <form action="{% url 'add_location' %}" method="post" id="add-location"><br>
@@ -85,6 +85,7 @@
             </div>
         </div>
         {% if table %}
+        <hr class="section-heading-spacer">
         <div class="row">
             <div class="col-xs-12 form-horizontal">
                 <h3>All Items</h3>
