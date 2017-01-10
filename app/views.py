@@ -9,7 +9,14 @@ from django.views.generic import FormView
 from django.views.generic.edit import DeleteView
 
 from app.models import Item, Image
+from app.varia import send_emails
 from .forms import S3DirectUploadForm, ItemForm
+
+
+def home(request):
+    published_items = Item.objects.filter(published=True).count
+    fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
+    return render(request, 'app/index.html', dict(published_items=published_items, fb_profile_clicks=fb_profile_clicks))
 
 
 @method_decorator(login_required, name='dispatch')
@@ -49,6 +56,7 @@ class ItemDetailView(DetailView):
         item = get_object_or_404(Item, id=item_id) if item_id else None
         if item.user != request.user:
             return redirect('home')
+
         return super().get(request, *args, **kwargs)
 
 
@@ -69,6 +77,7 @@ class ImageUploadView(FormView):
                 url = form.cleaned_data[key]
                 image = Image(item=item, url=url)
                 image.save()
+            send_emails(request, item)
             return redirect('view_item', item.id)
         else:
             return render(request, self.template_name, {'form': form})

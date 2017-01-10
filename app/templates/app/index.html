@@ -25,6 +25,15 @@
                 volutpat ante.
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6" id="statistics">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Statistics</h2><br>
+                <p>Total number of Items currently up for rent: {{ published_items }}</p>
+                <p>Total number of deals done: {{ fb_profile_clicks }}</p>
+            </div>
+        </div>
         {% if not request.user.is_authenticated %}
         <div class="row">
             <div class="col-xs-3">

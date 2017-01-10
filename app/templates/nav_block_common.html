@@ -3,9 +3,15 @@
     <a href="#contact">Contact</a>
 </li>
 {% if request.user.is_authenticated %}
-<li>
-    <a href="{% url 'add_item' %}">Rent out your items</a>
-</li>
+    {% if request.user.item_set.all|length > 0 %}
+    <li>
+        <a href="{% url 'add_item' %}">Add an item for rent</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'add_item' %}">Rent out your items</a>
+    </li>
+    {% endif %}
 <li>
     <a href="{{ request.user.profile.facebook_url }}" target="_blank"><img src="{{ request.user.profile.picture_url }}"></a>
 </li>

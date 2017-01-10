@@ -10,11 +10,10 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import uuid
 
 import dj_database_url
 from django.urls import reverse_lazy
-
-from app.varia import path_filename
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -201,6 +200,7 @@ AWS_STORAGE_BUCKET_NAME = 'ybuy'
 # http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
 S3DIRECT_REGION = 'eu-west-2'
 
+
 # Destinations, with the following keys:
 #
 # key [required] Where to upload the file to, can be either:
@@ -214,6 +214,11 @@ S3DIRECT_REGION = 'eu-west-2'
 # content_disposition [optional] Useful for sending files as attachments.
 # bucket [optional] Specify a different bucket for this particular object.
 # server_side_encryption [optional] Encryption headers for buckets that require it.
+
+
+def path_filename(filename):
+    return 'uploads/images/%s.%s' % (uuid.uuid1(), filename.split('.')[1])
+
 
 S3DIRECT_DESTINATIONS = {
     'images_destination': {
@@ -229,3 +234,13 @@ S3DIRECT_DESTINATIONS = {
     }
 }
 S3DIRECT_URL_STRUCTURE = 'https://{1}.{0}'
+
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'YBuy <kristjan.r@gmail.com>'
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']

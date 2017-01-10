@@ -1,11 +1,10 @@
 from django.conf.urls import url
-from django.views.generic import TemplateView
 
 from app.views import ImageUploadView, ItemView, ItemDetailView, ItemDeleteView, publish_item, \
-    unpublish_item, logout_view
+    unpublish_item, logout_view, home
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='app/index.html'), name='home'),
+    url(r'^$', home, name='home'),
     url(r'^item/add$', ItemView.as_view(), name='add_item'),
     url(r'^item/(?P<pk>[0-9]+)/$', ItemDetailView.as_view(), name='view_item'),
     url(r'^item/(?P<pk>[0-9]+)/images$', ImageUploadView.as_view(), name='upload_images'),
