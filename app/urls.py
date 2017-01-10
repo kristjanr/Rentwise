@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^item/(?P<pk>[0-9]+)/unpublish', unpublish_item, name='unpublish_item'),
     url(r'^item/(?P<pk>[0-9]+)/contact-owner', contact_owner, name='contact_owner'),
     url(r'^logout/facebook', logout_view, name='logout'),
+    url(r'^login/$', TemplateView.as_view(template_name='app/log_in.html'), name='login'),
     url(r'^location/add', add_location, name='add_location'),
     url(r'^terms$', TemplateView.as_view(template_name='app/terms.html'), name='terms'),
 ]

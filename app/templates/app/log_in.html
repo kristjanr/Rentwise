@@ -1,0 +1,22 @@
+{% extends "site_base.html" %}
+{% load staticfiles %}
+{% block head_title %}Log in{% endblock %}
+{% block extrahead %
+
+{% block body %}
+<div class="content-section-a">
+    <div class="container center">
+        {% if not request.user.is_authenticated %}
+        <div class="row">
+            <hr class="section-heading-spacer">
+            <div class="col-xs-3 center">
+                <div class="clearfix"></div>
+                <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
+                    <span class="fa fa-facebook"></span>Log in with Facebook</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
