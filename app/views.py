@@ -7,20 +7,24 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic.edit import DeleteView
+from geopy.distance import distance
 
 from app.models import Item, Image
 from app.varia import send_emails
-from .forms import S3DirectUploadForm, ItemForm
+from .forms import S3DirectUploadForm, ItemForm, ProfileLocationForm
 
 
 def home(request):
     published_items = Item.objects.filter(published=True).count()
     fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
-    return render(request, 'app/index.html', dict(published_items=published_items, fb_profile_clicks=fb_profile_clicks))
+    data = dict(place=request.user.profile.place, location=request.user.profile.location)
+    form = ProfileLocationForm(data) if data['place'] else ProfileLocationForm()
+    context = dict(published_items=published_items, fb_profile_clicks=fb_profile_clicks, form=form)
+    return render(request, 'app/index.html', context)
 
 
 @method_decorator(login_required, name='dispatch')
-class ItemView(FormView):
+class ItemAddView(FormView):
     form_class = ItemForm
 
     def get(self, request, *args, **kwargs):
@@ -60,7 +64,11 @@ class ItemDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(dict(new=self.request.GET['new'] == 'true')) if self.request.GET.get('new') else None
+        distance_in_miles = distance(self.request.user.profile.location, self.object.location).miles
+        data = dict(distance=distance_in_miles)
+        if self.request.GET.get('new'):
+            data['new'] = self.request.GET['new'] == 'true'
+        context.update(data)
         return context
 
 
@@ -122,4 +130,28 @@ def unpublish_item(request, *args, **kwargs):
 
 def logout_view(request):
     logout(request)
+    return redirect('home')
+
+
+@login_required
+def contact_owner(request, pk):
+    if not pk:
+        return redirect('home')
+    item = get_object_or_404(Item, id=pk) if pk else None
+    if not item.renters.filter(id=request.user.id):
+        item.renters.add(request.user)
+        item.save()
+    return redirect(item.user.profile.facebook_url)
+
+
+@login_required
+def add_location(request, *args, **kwargs):
+    if request.method != 'POST':
+        return redirect('home')
+    form = ProfileLocationForm(request.POST)
+    if form.is_valid():
+        profile = request.user.profile
+        profile.place = form.cleaned_data['place']
+        profile.location = form.cleaned_data['location']
+        profile.save()
     return redirect('home')

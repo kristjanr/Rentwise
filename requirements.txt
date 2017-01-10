@@ -16,3 +16,4 @@ whitenoise==3.2
 pinax_theme_bootstrap
 dj-places
 django-s3direct
+geopy

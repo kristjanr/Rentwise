@@ -68,6 +68,19 @@
                 <p>Total number of deals done: {{ fb_profile_clicks }}</p>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-8" id="location-form">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Please Enter Your location</h2><br>
+                <form action="{% url 'add_location' %}" method="post" id="add-location"><br>
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form }}
+                    <input type="submit" class="btn btn-success" value="Set My Location" name="submit">
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
