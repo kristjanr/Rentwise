@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load staticfiles %}
 {% block head_title %}Rent out your items{% endblock %}
 {% block extrahead %}
 
@@ -7,11 +8,10 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
-
-
-
-
 </script>
+<script type="text/javascript" src="{% static 'app/js/change_required_field_text.js' %}" defer></script>
+
+<script type="text/javascript" src="{% static 'app/js/bootstrap-filestyle.js' %}"></script>
 {% endblock %}
 
 {% block body %}

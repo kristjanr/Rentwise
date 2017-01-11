@@ -5,7 +5,8 @@ from django.core.validators import MinValueValidator, MinLengthValidator, MaxVal
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from djplaces.fields import LocationField
+
+from app.fields import LocationField
 
 
 class Profile(models.Model):
