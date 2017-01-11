@@ -21,7 +21,7 @@ class ItemForm(MyForm):
         exclude = [
             'user',
             'renters',
-            'published',
+            'is_published',
         ]
 
         widgets = {

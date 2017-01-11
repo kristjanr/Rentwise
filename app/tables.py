@@ -18,7 +18,7 @@ class ItemTable(tables.Table):
             'description',
             'location',
             'user',
-            'published',
+            'is_published',
         )
         # sequence = (
         #     'name',

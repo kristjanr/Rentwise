@@ -17,7 +17,7 @@ from .forms import S3DirectUploadForm, ItemForm, ProfileLocationForm
 
 
 def home(request):
-    published_items = Item.objects.filter(published=True).count()
+    published_items = Item.objects.filter(is_published=True).count()
     fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
 
     if hasattr(request.user, 'profile') and request.user.profile.place:
@@ -26,7 +26,7 @@ def home(request):
     else:
         form = ProfileLocationForm()
 
-    table = ItemTable(Item.objects.filter(published=True))
+    table = ItemTable(Item.objects.filter(is_published=True))
     RequestConfig(request).configure(table)
     context = dict(
         published_items=published_items,
@@ -52,8 +52,8 @@ class ItemAddView(FormView):
         if form.is_valid():
             item_data = form.cleaned_data
             item_data['user'] = request.user
-            if item_data.get('published'):
-                del item_data['published']
+            if item_data.get('is_published'):
+                del item_data['is_published']
             categories = item_data.pop('categories')
             item = Item(**item_data)
             item.save()
@@ -72,7 +72,7 @@ class ItemDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         item_id = kwargs.get('pk')
         item = get_object_or_404(Item, id=item_id) if item_id else None
-        if request.user.is_staff or item.user == request.user:
+        if item.is_published or item.user == request.user or request.user.is_staff:
             return super().get(request, *args, **kwargs)
         return redirect('home')
 
@@ -128,7 +128,7 @@ class ItemDeleteView(DeleteView):
 def publish_item(request, *args, **kwargs):
     item_id = kwargs.get('pk')
     item = get_object_or_404(Item, id=item_id) if item_id else None
-    item.published = True
+    item.is_published = True
     item.save()
     return redirect('view_item', item.id)
 
@@ -137,7 +137,7 @@ def publish_item(request, *args, **kwargs):
 def unpublish_item(request, *args, **kwargs):
     item_id = kwargs.get('pk')
     item = get_object_or_404(Item, id=item_id) if item_id else None
-    item.published = False
+    item.is_published = False
     item.save()
     return redirect('view_item', item.id)
 
