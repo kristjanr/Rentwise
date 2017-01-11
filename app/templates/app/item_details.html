@@ -132,18 +132,22 @@
         <label class="col-sm-4 control-label">controls</label>
         <div class="col-sm-8">
             {% if request.user.is_staff %}
-            <div class="col-sm-2">
-                <form action="{% url 'publish_item' pk=item.id%}" method="post" id="publish-item"><br>
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-success" value="Publish" name="submit">
-                </form>
-            </div>
-            <div class="col-sm-2">
-                <form action="{% url 'unpublish_item' pk=item.id%}" method="post" id="unpublish-item"><br>
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-warning" value="Unpublish" name="submit">
-                </form>
-            </div>
+                {% if item.is_published %}
+                <div class="col-sm-2">
+                    <form action="{% url 'unpublish_item' pk=item.id%}" method="post" id="unpublish-item"><br>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-warning" value="Unpublish" name="submit">
+                    </form>
+                </div>
+                {% else %}
+                <div class="col-sm-2">
+                    <form action="{% url 'publish_item' pk=item.id%}" method="post" id="publish-item"><br>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-success" value="Publish" name="submit">
+                    </form>
+                </div>
+                {% endif %}
+
             {% endif %}
 
             <div class="col-sm-2">
