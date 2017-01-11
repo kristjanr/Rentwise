@@ -1,6 +1,6 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
-{% block head_title %}Rent out your items{% endblock %}
+{% block head_title %}{{ item.name }}{% endblock %}
 {% block extrahead %}
 <link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
 <script type="text/javascript"
