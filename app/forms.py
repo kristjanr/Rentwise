@@ -49,6 +49,7 @@ class ItemForm(MyForm, S3DirectUploadForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['location'].widget.attrs['readonly'] = True
+        self.fields['location'].widget.attrs['style'] = 'display:none;'
         for f in self.fields.values():
             w = f.widget
             w.attrs.update({'title': 'tooltip text'})

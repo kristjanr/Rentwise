@@ -39,6 +39,7 @@ class Category(models.Model):
 positive_decimal = MinValueValidator(Decimal('0.01'))
 min_1 = MinValueValidator(1)
 max_500 = MaxValueValidator(500)
+max_5000 = MaxValueValidator(5000)
 
 
 class Item(models.Model):
@@ -48,12 +49,12 @@ class Item(models.Model):
 
     categories = models.ManyToManyField(Category, related_name='items')
 
-    name = models.CharField(max_length=100, validators=[MinLengthValidator(5)])
+    name = models.TextField(max_length=100, validators=[MinLengthValidator(5)])
 
-    description = models.CharField(max_length=5000, validators=[MinLengthValidator(20)])
+    description = models.TextField(max_length=5000, validators=[MinLengthValidator(20)])
 
-    price_per_day = models.DecimalField(verbose_name='price £/day', max_digits=4, decimal_places=2,
-                                        validators=[positive_decimal])
+    price_per_day = models.DecimalField(verbose_name='price £/day', max_digits=6, decimal_places=2,
+                                        validators=[positive_decimal, max_5000])
 
     minimum_rental_period = models.IntegerField(verbose_name='min. days',
                                                 validators=[min_1, max_500])

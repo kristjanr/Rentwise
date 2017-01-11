@@ -8,12 +8,15 @@ $(function () {
 })
 
 
+
+
+
 </script>
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <div id="content" class="col-xs-12 col-sm-8 col-md-8">
+    <div id="content" class="col-xs-12">
         <div class="row">
             <hr class="section-heading-spacer">
             <div class="clearfix"></div>
@@ -29,19 +32,29 @@ $(function () {
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                <div class="col-xs-12">
-                    <div class="control-label col-xs-2">
-                        {{ field.label_tag }}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="control-label col-xs-2">
+                            {% if field.name != 'location' %}
+                            {{ field.label_tag }}
+                            {% endif %}
+                        </div>
+                        {% if field.errors %}
+                        <div class="col-xs-8">
+                            {{ field }}
+                        </div>
+                        <div class="col-xs-2 alert-danger">
+                            {{ field.errors }}
+                        </div>
+                        {% else %}
+                        <div class="col-xs-10">
+                            {{ field }}
+                        </div>
+                        {% endif %}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
                     </div>
-                    <div class="col-xs-8">
-                        {{ field }}
-                    </div>
-                    <div class="col-xs-2">
-                        {{ field.errors }}
-                    </div>
-                    {% if field.help_text %}
-                    <p class="help">{{ field.help_text|safe }}</p>
-                    {% endif %}
                 </div>
                 {% endfor %}
                 <input type="submit" class="btn btn-success" value="Finish" name="submit">
