@@ -15,7 +15,25 @@ class MyForm(forms.ModelForm):
             w.attrs.update({'class': 'form-control'})
 
 
-class ItemForm(MyForm):
+class S3DirectUploadForm(forms.Form):
+    image01 = forms.URLField(widget=S3DirectWidget(dest='images_destination'))
+    image02 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image03 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image04 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image05 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image06 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image07 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image08 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image09 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+    image10 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
+
+    def add_class(self):
+        for f in self.fields.values():
+            w = f.widget
+            w.attrs.update({'class': 'form-control'})
+
+
+class ItemForm(MyForm, S3DirectUploadForm):
     class Meta:
         model = Item
         exclude = [
@@ -34,24 +52,6 @@ class ItemForm(MyForm):
         for f in self.fields.values():
             w = f.widget
             w.attrs.update({'title': 'tooltip text'})
-
-
-class S3DirectUploadForm(forms.Form):
-    image01 = forms.URLField(widget=S3DirectWidget(dest='images_destination'))
-    image02 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image03 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image04 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image05 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image06 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image07 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image08 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image09 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-    image10 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
-
-    def add_class(self):
-        for f in self.fields.values():
-            w = f.widget
-            w.attrs.update({'class': 'form-control'})
 
 
 class ProfileLocationForm(MyForm):

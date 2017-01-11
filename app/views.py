@@ -13,7 +13,7 @@ from geopy.distance import distance
 from app.models import Item, Image
 from app.tables import ItemTable
 from app.varia import send_emails
-from .forms import S3DirectUploadForm, ItemForm, ProfileLocationForm
+from .forms import ItemForm, ProfileLocationForm
 
 
 def home(request):
@@ -46,20 +46,30 @@ class ItemAddView(FormView):
         return render(request, 'app/add_item.html', {'form': form})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
         if len(Item.objects.filter(user=request.user)) > 500:
             return redirect('home')
+        form = self.form_class(request.POST)
+
         if form.is_valid():
-            item_data = form.cleaned_data
+            item_data = {k: v for k, v in form.cleaned_data.items() if 'image' not in k}
             item_data['user'] = request.user
-            if item_data.get('is_published'):
-                del item_data['is_published']
             categories = item_data.pop('categories')
             item = Item(**item_data)
             item.save()
+
             item.categories = categories
             item.save()
-            return redirect('upload_images', item.id)
+
+            images_data = {k: v for k, v in form.cleaned_data.items() if 'image' in k}
+            for key in sorted(k for k, v in images_data.items() if v):
+                url = images_data[key]
+                image = Image(item=item, url=url)
+                image.save()
+
+            send_emails(request, item)
+            response = redirect('view_item', item.id)
+            response['Location'] += '?new=true'
+            return response
         else:
             return render(request, 'app/add_item.html', {'form': form})
 
@@ -84,31 +94,6 @@ class ItemDetailView(DetailView):
         if self.request.GET.get('new'):
             context['new'] = self.request.GET['new'] == 'true'
         return context
-
-
-@method_decorator(login_required, name='dispatch')
-class ImageUploadView(FormView):
-    template_name = 'app/upload_images.html'
-    form_class = S3DirectUploadForm
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        item_id = kwargs.get('pk')
-        item = get_object_or_404(Item, id=item_id) if item_id else None
-        if not item or item.user != request.user:
-            return redirect('home')
-
-        if form.is_valid():
-            for key in sorted(k for k, v in form.cleaned_data.items() if v):
-                url = form.cleaned_data[key]
-                image = Image(item=item, url=url)
-                image.save()
-            send_emails(request, item)
-            response = redirect('view_item', item.id)
-            response['Location'] += '?new=true'
-            return response
-        else:
-            return render(request, self.template_name, {'form': form})
 
 
 @method_decorator(login_required, name='dispatch')

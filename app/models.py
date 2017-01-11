@@ -52,13 +52,13 @@ class Item(models.Model):
 
     description = models.CharField(max_length=5000, validators=[MinLengthValidator(20)])
 
-    price_per_day = models.DecimalField(verbose_name='price per day (£)', max_digits=4, decimal_places=2,
+    price_per_day = models.DecimalField(verbose_name='price £/day', max_digits=4, decimal_places=2,
                                         validators=[positive_decimal])
 
-    minimum_rental_period = models.IntegerField(verbose_name='minimum rental period (days)',
+    minimum_rental_period = models.IntegerField(verbose_name='min. days',
                                                 validators=[min_1, max_500])
 
-    estimated_value = models.DecimalField(verbose_name='estimated value (£)', max_digits=8, decimal_places=2,
+    estimated_value = models.DecimalField(verbose_name='value £', max_digits=8, decimal_places=2,
                                           validators=[positive_decimal])
 
     place = models.CharField(max_length=250)
