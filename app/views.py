@@ -72,9 +72,9 @@ class ItemDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         item_id = kwargs.get('pk')
         item = get_object_or_404(Item, id=item_id) if item_id else None
-        if item.user != request.user:
-            return redirect('home')
-        return super().get(request, *args, **kwargs)
+        if request.user.is_staff or item.user == request.user:
+            return super().get(request, *args, **kwargs)
+        return redirect('home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
