@@ -91,8 +91,17 @@
 
 .jcarousel-pagination {
     position: absolute;
-    bottom: 0;
-    left: 15px;
+    bottom: 10px;
+    left: 50%;
+
+    margin: 0;
+    margin-left: -22px;
+}
+
+@media (max-width: 620px) {
+    .jcarousel-pagination {
+        bottom: -35px;
+    }
 }
 
 .jcarousel-pagination a {
@@ -100,23 +109,28 @@
     display: inline-block;
 
     font-size: 11px;
-    line-height: 14px;
-    min-width: 14px;
+    height: 10px;
+    width: 10px;
+    line-height: 10px;
 
     background: #fff;
     color: #4E443C;
-    border-radius: 14px;
-    padding: 3px;
-    text-align: center;
+    border-radius: 10px;
+    text-indent: -9999px;
 
-    margin-right: 2px;
+    margin-right: 7px;
 
-    opacity: .75;
+    -webkit-box-shadow: 0 0 2px #4E443C;
+    -moz-box-shadow: 0 0 2px #4E443C;
+    box-shadow: 0 0 2px #4E443C;
 }
 
 .jcarousel-pagination a.active {
     background: #4E443C;
     color: #fff;
     opacity: 1;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+
+    -webkit-box-shadow: 0 0 2px #F0EFE7;
+    -moz-box-shadow: 0 0 2px #F0EFE7;
+    box-shadow: 0 0 2px #F0EFE7;
 }

@@ -5,7 +5,9 @@
 <link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
-<script type="text/javascript" src="{% static 'app/js/run_jcarousel.js' %}" defer></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel-pagination.min.js"></script>
+<script type="text/javascript" src="{% static 'app/js/item_details_jcarousel.js' %}" defer></script>
 
 {% endblock %}
 {% block body %}
@@ -27,6 +29,7 @@
             </div>
             <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
             <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+            <p class="jcarousel-pagination"></p>
         </div>
     </div>
     <div class="row">
