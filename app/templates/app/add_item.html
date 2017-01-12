@@ -26,7 +26,7 @@
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                <div class="row">
+                <div class="row {% if 'image' in field.name and field.name != 'image01' %} hidden {% endif %}">
                     <div class="col-xs-12">
                         <div class="control-label col-xs-2">
                         {% if field.name != 'location' %}
