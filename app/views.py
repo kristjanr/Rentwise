@@ -104,9 +104,9 @@ class ItemDeleteView(DeleteView):
     def post(self, request, *args, **kwargs):
         item_id = kwargs.get('pk')
         item = get_object_or_404(Item, id=item_id) if item_id else None
-        if not item or item.user != request.user:
-            return redirect('view_item', item.id)
-        return super().post(request, *args, **kwargs)
+        if item and (item.user != request.user or request.user.is_staff):
+            return super().post(request, *args, **kwargs)
+        return redirect('view_item', item.id)
 
 
 @staff_member_required
