@@ -137,7 +137,7 @@ def contact_owner(request, pk):
     if not pk:
         return redirect('home')
     item = get_object_or_404(Item, id=pk) if pk else None
-    if not item.renters.filter(id=request.user.id):
+    if not item.renters.filter(id=request.user.id) and request.user != item.user:
         item.renters.add(request.user)
         item.save()
     return redirect(item.user.profile.facebook_url)
