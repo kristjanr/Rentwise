@@ -15,19 +15,16 @@
 }
 #id_categories {
     list-style-type: none;
+    overflow: hidden;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
-#id_categories > * {
-    float: left;
-    text-align: center;
-    padding: 15px;
-    display: block;
-}
+
 #id_categories input {
     width: 15px;
     height: 15px;
+    display: inline;
+    margin: 8px;
 }
 input[type=checkbox]
 {

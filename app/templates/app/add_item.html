@@ -3,12 +3,6 @@
 {% block head_title %}Rent out your items{% endblock %}
 {% block extrahead %}
 
-<script>
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
-
-</script>
 <script type="text/javascript" src="{% static 'app/js/change_required_field_text.js' %}" defer></script>
 
 <script type="text/javascript" src="{% static 'app/js/bootstrap-filestyle.js' %}"></script>
@@ -35,9 +29,9 @@ $(function () {
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="control-label col-xs-2">
-                            {% if field.name != 'location' %}
-                            {{ field.label_tag }}
-                            {% endif %}
+                        {% if field.name != 'location' %}
+                        {{ field.label_tag }}
+                        {% endif %}
                         </div>
                         {% if field.errors %}
                         <div class="col-xs-8">

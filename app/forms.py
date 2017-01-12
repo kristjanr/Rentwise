@@ -27,10 +27,23 @@ class S3DirectUploadForm(forms.Form):
     image09 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
     image10 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
 
-    def add_class(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         for f in self.fields.values():
             w = f.widget
-            w.attrs.update({'class': 'form-control'})
+            w.attrs.update({
+                'class': 'form-control',
+            })
+
+
+tooltips = {
+    'name': 'This will be the title for your item.',
+    'description': 'This is going to appear in the detailed view of your item. Describe the item in as much detail as you think is necessary and try to make it as attractive as possible.',
+    'price_per_day': 'This is the price you plan to charge per one day.',
+    'minimum_rental_period': 'This is the minimum number of days you are willing to rent your item out for.',
+    'estimated_value': 'This is the estimated value of your item. This can be used as a legal basis in case of any problems. Stay realistic!',
+    'place': 'This is the location, where you are renting out your item.',
+}
 
 
 class ItemForm(MyForm, S3DirectUploadForm):
@@ -50,9 +63,10 @@ class ItemForm(MyForm, S3DirectUploadForm):
         super().__init__(*args, **kwargs)
         self.fields['location'].widget.attrs['readonly'] = True
         self.fields['location'].widget.attrs['style'] = 'display:none;'
-        for f in self.fields.values():
+        for field_name, tooltip in tooltips.items():
+            f = self.fields[field_name]
             w = f.widget
-            w.attrs.update({'title': 'tooltip text'})
+            w.attrs.update({'title': tooltip})
 
 
 class ProfileLocationForm(MyForm):
