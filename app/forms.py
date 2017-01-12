@@ -12,7 +12,10 @@ class MyForm(forms.ModelForm):
     def add_class(self):
         for f in self.fields.values():
             w = f.widget
-            w.attrs.update({'class': 'form-control'})
+            w.attrs.update({
+                'class': 'form-control',
+                'data-toggle': 'tooltip',
+            })
 
 
 class S3DirectUploadForm(forms.Form):

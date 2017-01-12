@@ -12,3 +12,6 @@ $('.form-control').on('change invalid', function() {
     }
 });
 
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
