@@ -1,6 +1,7 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -13,27 +14,41 @@ from geopy.distance import distance
 from app.models import Item, Image
 from app.tables import ItemTable
 from app.varia import send_emails
-from .forms import ItemForm, ProfileLocationForm
+from .forms import ItemForm, SearchForm
 
 
 def home(request):
     published_items = Item.objects.filter(is_published=True).count()
     fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
-
-    if hasattr(request.user, 'profile') and request.user.profile.place:
-        form_data = dict(place=request.user.profile.place, location=request.user.profile.location)
-        form = ProfileLocationForm(form_data)
-    else:
-        form = ProfileLocationForm()
-
-    table = ItemTable(Item.objects.filter(is_published=True))
-    RequestConfig(request).configure(table)
     context = dict(
         published_items=published_items,
         fb_profile_clicks=fb_profile_clicks,
-        form=form,
-        table=table,
     )
+    if request.method != 'GET':
+        context['form'] = SearchForm()
+        return render(request, 'app/index.html', context)
+
+    form = SearchForm(request.GET)
+    if not form.is_valid():
+        return render(request, 'app/index.html', context)
+
+    context['form'] = form
+    what = form.cleaned_data['what'].strip()
+    where = form.cleaned_data['where'].strip()
+    if not what and not where:
+        return render(request, 'app/index.html', context)
+
+    items = Item.objects.annotate(search=SearchVector('name', 'description'))
+    items.filter(is_published=True)
+    if what:
+        for what_kw in what.split(' '):
+            items = items.filter(search=what_kw)
+    if where:
+        for where_kw in where.replace(', ', ' ').replace(',', '').split(' '):
+            items = items.filter(place__search=where_kw)
+    table = ItemTable(items)
+    RequestConfig(request).configure(table)
+    context['table'] = table
     return render(request, 'app/index.html', context)
 
 
@@ -141,16 +156,3 @@ def contact_owner(request, pk):
         item.renters.add(request.user)
         item.save()
     return redirect(item.user.profile.facebook_url)
-
-
-@login_required
-def add_location(request, *args, **kwargs):
-    if request.method != 'POST':
-        return redirect('home')
-    form = ProfileLocationForm(request.POST)
-    if form.is_valid():
-        profile = request.user.profile
-        profile.place = form.cleaned_data['place']
-        profile.location = form.cleaned_data['location']
-        profile.save()
-    return redirect('home')

@@ -72,14 +72,6 @@ class ItemForm(MyForm, S3DirectUploadForm):
             w.attrs.update({'title': tooltip})
 
 
-class ProfileLocationForm(MyForm):
-    class Meta:
-        model = Profile
-        fields = [
-            'place',
-            'location',
-        ]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['location'].widget.attrs['readonly'] = True
+class SearchForm(forms.Form):
+    what = forms.CharField(required=False)
+    where = forms.CharField(required=False)

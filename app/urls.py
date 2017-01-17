@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 
 from app.views import ItemAddView, ItemDetailView, ItemDeleteView, publish_item, \
-    unpublish_item, logout_view, home, contact_owner, add_location
+    unpublish_item, logout_view, home, contact_owner
 
 urlpatterns = [
     url(r'^$', home, name='home'),
@@ -14,6 +14,5 @@ urlpatterns = [
     url(r'^item/(?P<pk>[0-9]+)/contact-owner', contact_owner, name='contact_owner'),
     url(r'^logout/facebook', logout_view, name='logout'),
     url(r'^login/$', TemplateView.as_view(template_name='app/log_in.html'), name='login'),
-    url(r'^location/add', add_location, name='add_location'),
     url(r'^terms$', TemplateView.as_view(template_name='app/terms.html'), name='terms'),
 ]
