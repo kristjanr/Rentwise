@@ -35,8 +35,6 @@ def home(request):
     context['form'] = form
     what = form.cleaned_data['what'].strip()
     where = form.cleaned_data['where'].strip()
-    if not what and not where:
-        return render(request, 'app/index.html', context)
 
     items = Item.objects.annotate(search=SearchVector('name', 'description'))
     items.filter(is_published=True)
