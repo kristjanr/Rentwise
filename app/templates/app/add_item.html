@@ -29,8 +29,12 @@
                 <div class="row {% if 'image' in field.name and field.name != 'image01' %} hidden {% endif %}">
                     <div class="col-xs-12">
                         <div class="control-label col-xs-2">
-                        {% if field.name != 'location' %}
-                        {{ field.label_tag }}
+                        {% if field.name == 'categories' %}
+                            <label for="id_categories">Categories:</label>
+                        {% else %}
+                            {% if field.name != 'location' %}
+                            {{ field.label_tag }}
+                            {% endif %}
                         {% endif %}
                         </div>
                         {% if field.errors %}
