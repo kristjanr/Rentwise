@@ -1,7 +1,8 @@
 from django import forms
 from s3direct.widgets import S3DirectWidget
 
-from app.models import Item, Profile
+from app.fields import LocationField
+from app.models import Item
 
 
 class MyForm(forms.ModelForm):
@@ -74,4 +75,5 @@ class ItemForm(MyForm, S3DirectUploadForm):
 
 class SearchForm(forms.Form):
     what = forms.CharField(required=False)
-    where = forms.CharField(required=False)
+    place = forms.CharField(required=False, label='Where')
+    location = LocationField(base_field='place').formfield(required=False)

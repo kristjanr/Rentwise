@@ -32,18 +32,18 @@ def home(request):
     if not form.is_valid():
         return render(request, 'app/index.html', context)
 
-    context['form'] = form
     what = form.cleaned_data['what'].strip()
-    where = form.cleaned_data['where'].strip()
+    place = form.cleaned_data['place'].strip()
+    # location can be legally empty while place is not empty, if user did not use autocomplete
+    location = form.cleaned_data['location']
+    context['form'] = SearchForm(data=dict(what=what, place=place))
 
-    items = Item.objects.annotate(search=SearchVector('name', 'description'))
+    items = Item.objects.annotate(what=SearchVector('name', 'description'))
     items.filter(is_published=True)
     if what:
-        for what_kw in what.split(' '):
-            items = items.filter(search=what_kw)
-    if where:
-        for where_kw in where.replace(', ', ' ').replace(',', '').split(' '):
-            items = items.filter(place__search=where_kw)
+        items = items.filter(what=what)
+    if place:
+        items = items.filter(place__search=place)
     table = ItemTable(items)
     RequestConfig(request).configure(table)
     context['table'] = table

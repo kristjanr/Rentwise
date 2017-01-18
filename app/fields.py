@@ -6,6 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from .widgets import LocationWidget
 
+"""
+Copied this from djplaces package in order to include own customized LocationWidget
+"""
+
 
 class LocationField(CharField):
     description = _("A geoposition field (latitude and longitude)")
