@@ -45,28 +45,17 @@ max_5000 = MaxValueValidator(5000)
 
 class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, )
-
     renters = models.ManyToManyField(User, related_name='items')
-
     categories = models.ManyToManyField(Category, related_name='items')
-
     name = models.TextField(max_length=100, validators=[MinLengthValidator(5)])
-
     description = models.TextField(max_length=5000, validators=[MinLengthValidator(20)])
-
     price_per_day = models.DecimalField(verbose_name='price £/day', max_digits=6, decimal_places=2,
                                         validators=[max_5000, positive_decimal])
-
     minimum_rental_period = models.IntegerField(verbose_name='min. days', validators=[min_1, max_500])
-
     estimated_value = models.IntegerField(verbose_name='value £', validators=[min_1])
-
     place = models.CharField(max_length=250)
-
     location = LocationField(base_field='place')
-
     is_published = models.BooleanField(default=False)
-
     created_at = models.DateTimeField(auto_now=True, verbose_name='Added on')
 
     def __str__(self):
@@ -86,3 +75,24 @@ class Image(models.Model):
 
     def __str__(self):
         return self.url
+
+
+class Search(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    what = models.CharField(max_length=250, blank=True, null=True)
+    place = models.CharField(max_length=250, blank=True, null=True)
+    location = LocationField(base_field='place', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.what + ' ' + self.place
+
+
+class FoundItem(models.Model):
+    search = models.ForeignKey(Search, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    distance = models.FloatField(verbose_name='Distance (miles)', null=True)
+
+    @property
+    def name(self):
+        return self.item.name

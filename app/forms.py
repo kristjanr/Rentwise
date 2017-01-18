@@ -1,8 +1,7 @@
 from django import forms
 from s3direct.widgets import S3DirectWidget
 
-from app.fields import LocationField
-from app.models import Item
+from app.models import Item, Search
 
 
 class MyForm(forms.ModelForm):
@@ -73,7 +72,11 @@ class ItemForm(MyForm, S3DirectUploadForm):
             w.attrs.update({'title': tooltip})
 
 
-class SearchForm(forms.Form):
-    what = forms.CharField(required=False)
-    place = forms.CharField(required=False, label='Where')
-    location = LocationField(base_field='place').formfield(required=False)
+class SearchForm(forms.ModelForm):
+    class Meta:
+        model = Search
+        fields = [
+            'what',
+            'place',
+            'location',
+        ]

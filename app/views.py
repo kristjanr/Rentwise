@@ -11,8 +11,8 @@ from django.views.generic.edit import DeleteView
 from django_tables2 import RequestConfig
 from geopy.distance import distance
 
-from app.models import Item, Image
-from app.tables import ItemTable
+from app.models import Item, Image, Search, FoundItem
+from app.tables import FoundItemTable, ItemTable
 from app.varia import send_emails
 from .forms import ItemForm, SearchForm
 
@@ -34,19 +34,39 @@ def home(request):
 
     what = form.cleaned_data['what'].strip()
     place = form.cleaned_data['place'].strip()
-    # location can be legally empty while place is not empty, if user did not use autocomplete
-    location = form.cleaned_data['location']
+    location = form.cleaned_data['location'].strip()
+
+    search = None
+    if what or place:
+        search_data = form.cleaned_data
+        if request.user.is_authenticated():
+            search_data['user'] = request.user
+        search = Search(**search_data)
+        search.save()
+
+    # Cannot populate location field. Google places api js populates it based on the place field.
     context['form'] = SearchForm(data=dict(what=what, place=place))
 
+    # Search
     items = Item.objects.annotate(what=SearchVector('name', 'description'))
     items.filter(is_published=True)
     if what:
         items = items.filter(what=what)
-    if place:
-        items = items.filter(place__search=place)
-    table = ItemTable(items)
-    RequestConfig(request).configure(table)
-    context['table'] = table
+    # Create table from results
+    table = None
+    if items and search and search.location:
+        found_items = []
+        for item in items:
+            found_item = FoundItem(item=item, search=search)
+            found_item.distance = distance(item.location, location).miles
+            found_item.save()
+            found_items.append(found_item)
+            table = FoundItemTable(found_items)
+    elif items:
+        table = ItemTable(items)
+    if table:
+        RequestConfig(request).configure(table)
+        context['table'] = table
     return render(request, 'app/index.html', context)
 
 
@@ -101,9 +121,7 @@ class ItemDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.profile.location:
-            distance_in_miles = distance(self.request.user.profile.location, self.object.location).miles
-            context['distance'] = distance_in_miles
+        context['distance'] = self.request.GET.get('distance')
         if self.request.GET.get('new'):
             context['new'] = self.request.GET['new'] == 'true'
         return context
