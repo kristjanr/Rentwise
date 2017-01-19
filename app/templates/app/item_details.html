@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
+{% load item_extras %}
 {% block head_title %}{{ item.name }}{% endblock %}
 {% block extrahead %}
 <link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
@@ -35,7 +36,7 @@
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">Categories</label>
+        <label class="col-sm-4 control-label">{{ 'categories' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">
                 {% for category in item.categories.all %}
@@ -46,42 +47,42 @@
     </div>
 
   <div class="row">
-        <label class="col-sm-4 control-label">Name</label>
+        <label class="col-sm-4 control-label">{{ 'name' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.name }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">Description</label>
+        <label class="col-sm-4 control-label">{{ 'description' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.description }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">Price £/day</label>
+        <label class="col-sm-4 control-label">{{ 'price_per_day' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.price_per_day }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">Min. days</label>
+        <label class="col-sm-4 control-label">{{ 'minimum_rental_period' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.minimum_rental_period }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">Value £</label>
+        <label class="col-sm-4 control-label">{{ 'estimated_value' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.estimated_value }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">Location</label>
+        <label class="col-sm-4 control-label">{{ 'place' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.place }}</p>
         </div>
@@ -95,7 +96,7 @@
     </div>
     {% endif %}
     <div class="row">
-        <label class="col-sm-4 control-label">Ad posted on</label>
+        <label class="col-sm-4 control-label">{{ 'created_at' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.created_at }}</p>
         </div>
@@ -112,13 +113,13 @@
     </div>
     {% if request.user.is_staff %}
     <div class="row">
-        <label class="col-sm-4 control-label">Owner</label>
+        <label class="col-sm-4 control-label">{{ 'user' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.user }}</p>
         </div>
     </div>
     <div class="row">
-        <label class="col-sm-4 control-label">Owner e-mail address</label>
+        <label class="col-sm-4 control-label">{{ 'user' | verbose_name}}'s e-mail address</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.user.email }}</p>
         </div>
@@ -127,7 +128,7 @@
 
     {% if request.user == item.user or request.user.is_staff %}
     <div class="row">
-        <label class="col-sm-4 control-label">Is published</label>
+        <label class="col-sm-4 control-label">{{ 'is_published' | verbose_name}}</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.is_published }}</p>
         </div>
@@ -155,7 +156,7 @@
 
             {% endif %}
 
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <form action="{% url 'delete_item' pk=item.id%}" method="post" id="delete-item"><br>
                     {% csrf_token %}
                     <input type="submit" class="btn btn-error" value="Delete" name="submit">

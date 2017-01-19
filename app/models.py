@@ -44,19 +44,19 @@ max_5000 = MaxValueValidator(5000)
 
 
 class Item(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Owner', )
     renters = models.ManyToManyField(User, related_name='items')
-    categories = models.ManyToManyField(Category, related_name='items')
-    name = models.TextField(max_length=100, validators=[MinLengthValidator(5)])
-    description = models.TextField(max_length=5000, validators=[MinLengthValidator(20)])
-    price_per_day = models.DecimalField(verbose_name='price £/day', max_digits=6, decimal_places=2,
-                                        validators=[max_5000, positive_decimal])
-    minimum_rental_period = models.IntegerField(verbose_name='min. days', validators=[min_1, max_500])
-    estimated_value = models.IntegerField(verbose_name='value £', validators=[min_1])
-    place = models.CharField(verbose_name='Location', max_length=250)
+    categories = models.ManyToManyField(Category, related_name='items', verbose_name='Categories', )
+    name = models.TextField(max_length=100, validators=[MinLengthValidator(5)], verbose_name='Name', )
+    description = models.TextField(max_length=5000, validators=[MinLengthValidator(20)], verbose_name='Description', )
+    price_per_day = models.DecimalField(max_digits=6, decimal_places=2,
+                                        validators=[max_5000, positive_decimal], verbose_name='Price £/day', )
+    minimum_rental_period = models.IntegerField(validators=[min_1, max_500], verbose_name='Min. days', )
+    estimated_value = models.IntegerField(validators=[min_1], verbose_name='Value £', )
+    place = models.CharField(max_length=250, verbose_name='Location', )
     location = LocationField(base_field='place')
-    is_published = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now=True, verbose_name='Added on')
+    is_published = models.BooleanField(default=False, verbose_name='Is published', )
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Added on', )
 
     def __str__(self):
         return self.name

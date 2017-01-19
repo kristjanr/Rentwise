@@ -1,5 +1,6 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
+{% load item_extras %}
 {% block head_title %}Rent out your items{% endblock %}
 {% block extrahead %}
 
@@ -30,7 +31,7 @@
                     <div class="col-xs-12">
                         <div class="control-label col-xs-2">
                         {% if field.name == 'categories' %}
-                            <label for="id_categories">Categories:</label>
+                            <label for="id_categories">{{ 'categories' | verbose_name}}:</label>
                         {% elif 'image' in field.name %}
                             <label>Images:</label>
                         {% elif field.name != 'location' %}
