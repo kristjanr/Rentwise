@@ -1,6 +1,5 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
-{% load render_table from django_tables2 %}
 {% block head_title %}Home{% endblock %}
 {% block extrahead %}
 <link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
@@ -56,7 +55,7 @@
         {% if not request.user.is_authenticated %}
         <div class="row">
             <div class="center text-center">
-            <hr class="section-heading-spacer">
+                <hr class="section-heading-spacer">
                 <div class="col-xs-3 center">
                     <div class="clearfix"></div>
                     <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
@@ -74,37 +73,7 @@
                 <p>Total number of deals done: {{ fb_profile_clicks }}</p>
             </div>
         </div>
-        <div class="row">
-            <hr class="section-heading-spacer">
-            <div class="col-xs-12" id="search-form">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">Search</h2><br>
-                <form action="{% url 'home' %}" method="get" id="search"><br>
-                    {% for field in form %}
-                    <div class="row {% if 'location' == field.name %} hidden {% endif %}">
-                        <div class="col-xs-12">
-                            <div class="control-label col-xs-2">
-                                {{ field.label_tag }}
-                            </div>
-                            <div class="col-xs-10">
-                                {{ field }}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <input type="submit" class="btn btn-success">
-                </form>
-            </div>
-        </div>
-        {% if table %}
-        <hr class="section-heading-spacer">
-        <div class="row">
-            <div class="col-xs-12 form-horizontal">
-                <h3>All Items</h3>
-                    {% render_table table %}
-            </div>
-        </div>
-        {% endif %}
+        {% include "app/item_search.html" %}
     </div>
 </div>
 

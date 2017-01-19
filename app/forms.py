@@ -79,4 +79,5 @@ class SearchForm(forms.ModelForm):
             'what',
             'place',
             'location',
+            'category',
         ]

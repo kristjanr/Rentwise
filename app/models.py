@@ -79,6 +79,8 @@ class Image(models.Model):
 
 class Search(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True,
+                                 verbose_name='Filter by category', )
     what = models.CharField(max_length=250, blank=True, null=True)
     place = models.CharField(max_length=250, blank=True, null=True)
     location = LocationField(base_field='place', blank=True, null=True)

@@ -24,6 +24,10 @@ def home(request):
         published_items=published_items,
         fb_profile_clicks=fb_profile_clicks,
     )
+    return search_items(context, request)
+
+
+def search_items(context, request):
     if request.method != 'GET':
         context['form'] = SearchForm()
         return render(request, 'app/index.html', context)
@@ -31,13 +35,13 @@ def home(request):
     form = SearchForm(request.GET)
     if not form.is_valid():
         return render(request, 'app/index.html', context)
-
     what = form.cleaned_data['what'].strip()
     place = form.cleaned_data['place'].strip()
     location = form.cleaned_data['location'].strip()
+    category = form.cleaned_data['category']
 
     search = None
-    if what or place:
+    if what or place or category:
         search_data = form.cleaned_data
         if request.user.is_authenticated():
             search_data['user'] = request.user
@@ -45,13 +49,17 @@ def home(request):
         search.save()
 
     # Cannot populate location field. Google places api js populates it based on the place field.
-    context['form'] = SearchForm(data=dict(what=what, place=place))
+    form = SearchForm(data=dict(what=what, place=place, category=category))
+    context['form'] = form
 
     # Search
-    items = Item.objects.annotate(what=SearchVector('name', 'description'))
-    items.filter(is_published=True)
+    items = Item.objects.filter(is_published=True)
+    if category:
+        items = items.filter(categories=category)
     if what:
+        items = items.annotate(what=SearchVector('name', 'description'))
         items = items.filter(what=what)
+
     # Create table from results
     table = None
     if items and search and search.location:
@@ -64,8 +72,9 @@ def home(request):
             table = FoundItemTable(found_items)
     elif items:
         table = ItemTable(items)
+
     if table:
-        RequestConfig(request).configure(table)
+        RequestConfig(request, paginate={'per_page': 100}).configure(table)
         context['table'] = table
     return render(request, 'app/index.html', context)
 

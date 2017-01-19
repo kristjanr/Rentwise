@@ -23,7 +23,7 @@ class ItemTable(Table):
             'is_published',
         )
         order_by = ('name',)
-        attrs = {"class": "paleblue"}
+        attrs = {'class': 'paleblue'}
 
 
 # Name	Price £/Day	Min. Days	Value £	Place	Added On
