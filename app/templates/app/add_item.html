@@ -31,10 +31,10 @@
                         <div class="control-label col-xs-2">
                         {% if field.name == 'categories' %}
                             <label for="id_categories">Categories:</label>
-                        {% else %}
-                            {% if field.name != 'location' %}
+                        {% elif 'image' in field.name %}
+                            <label>Images:</label>
+                        {% elif field.name != 'location' %}
                             {{ field.label_tag }}
-                            {% endif %}
                         {% endif %}
                         </div>
                         {% if field.errors %}

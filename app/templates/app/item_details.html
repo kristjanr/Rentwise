@@ -18,6 +18,7 @@
             published and will appear in search results within 24 hours after you added it.</p>
     </div>
     {% endif %}
+
     <div class="row">
         <div class="jcarousel-wrapper">
             <div class="jcarousel">
@@ -32,22 +33,9 @@
             <p class="jcarousel-pagination"></p>
         </div>
     </div>
-    <div class="row">
-        <label class="col-sm-4 control-label">name</label>
-        <div class="col-sm-8">
-            <p class="form-control-static">{{ item.name }}</p>
-        </div>
-    </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">description</label>
-        <div class="col-sm-8">
-            <p class="form-control-static">{{ item.description }}</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <label class="col-sm-4 control-label">categories</label>
+        <label class="col-sm-4 control-label">Categories</label>
         <div class="col-sm-8">
             <p class="form-control-static">
                 {% for category in item.categories.all %}
@@ -57,41 +45,61 @@
         </div>
     </div>
 
+  <div class="row">
+        <label class="col-sm-4 control-label">Name</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.name }}</p>
+        </div>
+    </div>
+
     <div class="row">
-        <label class="col-sm-4 control-label">price_per_day</label>
+        <label class="col-sm-4 control-label">Description</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.description }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4 control-label">Price £/day</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.price_per_day }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">minimum_rental_period</label>
+        <label class="col-sm-4 control-label">Min. days</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.minimum_rental_period }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">estimated_value</label>
+        <label class="col-sm-4 control-label">Value £</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.estimated_value }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">place</label>
+        <label class="col-sm-4 control-label">Location</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.place }}</p>
         </div>
     </div>
     {% if distance %}
     <div class="row">
-        <label class="col-sm-4 control-label">distance to you</label>
+        <label class="col-sm-4 control-label">Distance to you</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ distance|floatformat:2 }} miles</p>
         </div>
     </div>
     {% endif %}
+    <div class="row">
+        <label class="col-sm-4 control-label">Ad posted on</label>
+        <div class="col-sm-8">
+            <p class="form-control-static">{{ item.created_at }}</p>
+        </div>
+    </div>
     <div class="row">
         <label class="col-xs-4 control-label"></label>
         <div class="col-xs-8">
@@ -104,19 +112,13 @@
     </div>
     {% if request.user.is_staff %}
     <div class="row">
-        <label class="col-sm-4 control-label">user</label>
+        <label class="col-sm-4 control-label">Owner</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.user }}</p>
         </div>
     </div>
     <div class="row">
-        <label class="col-sm-4 control-label">user fb profile</label>
-        <div class="col-sm-8">
-            <p class="form-control-static">{{ item.user.profile.facebook_url }}</p>
-        </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-4 control-label">user email</label>
+        <label class="col-sm-4 control-label">Owner e-mail address</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.user.email }}</p>
         </div>
@@ -125,14 +127,14 @@
 
     {% if request.user == item.user or request.user.is_staff %}
     <div class="row">
-        <label class="col-sm-4 control-label">Published</label>
+        <label class="col-sm-4 control-label">Is published</label>
         <div class="col-sm-8">
             <p class="form-control-static">{{ item.is_published }}</p>
         </div>
     </div>
 
     <div class="row">
-        <label class="col-sm-4 control-label">controls</label>
+        <label class="col-sm-4 control-label">Controls</label>
         <div class="col-sm-8">
             {% if request.user.is_staff %}
                 {% if item.is_published %}

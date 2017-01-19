@@ -53,7 +53,7 @@ class Item(models.Model):
                                         validators=[max_5000, positive_decimal])
     minimum_rental_period = models.IntegerField(verbose_name='min. days', validators=[min_1, max_500])
     estimated_value = models.IntegerField(verbose_name='value £', validators=[min_1])
-    place = models.CharField(max_length=250)
+    place = models.CharField(verbose_name='Location', max_length=250)
     location = LocationField(base_field='place')
     is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True, verbose_name='Added on')

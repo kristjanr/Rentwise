@@ -36,7 +36,7 @@ class FoundItemTable(Table):
     created_at = Column(accessor='item.created_at')
 
     def render_name(self, record):
-        return mark_safe('<a href=%s?distance=%.2f>%s</a>' % (
+        return mark_safe('<a href=%s?distance=%f>%s</a>' % (
             record.item.get_absolute_url(),
             record.distance,
             record.item.name
