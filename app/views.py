@@ -17,6 +17,10 @@ from app.varia import send_emails
 from .forms import ItemForm, SearchForm
 
 
+def log_in_view(request):
+    return redirect('/login/facebook/?next=' + request.GET.get('next', ''))
+
+
 def home(request):
     published_items = Item.objects.filter(is_published=True).count()
     fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
