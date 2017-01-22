@@ -1,7 +1,7 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.postgres.search import SearchVector
+from django.db.models.query_utils import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -61,8 +61,8 @@ def search_items(context, request):
     if category:
         items = items.filter(categories=category)
     if what:
-        items = items.annotate(what=SearchVector('name', 'description'))
-        items = items.filter(what=what)
+        # items = items.annotate(what=SearchVector('name', 'description'))
+        items = items.filter(Q(name__icontains=what) | Q(description__icontains=what))
 
     # Create table from results
     table = None
