@@ -21,7 +21,7 @@
             <p>People can find your items by searching. They can then contact you through Facebook.</p>
         </div>
         <div class="row">
-            <form action="{% url 'add_item' %}" method="post" id="add-item"><br>
+            <form novalidate action="{% url 'add_item' %}" method="post" id="add-item"><br>
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 {% for field in form %}
