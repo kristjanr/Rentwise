@@ -28,7 +28,7 @@ class LocationWidget(widgets.TextInput):
                 '//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js',
                 '//maps.googleapis.com/maps/api/js?key=' + settings.MAPS_API_KEY + '&libraries=places&language=en',
                 '//cdnjs.cloudflare.com/ajax/libs/geocomplete/1.7.0/jquery.geocomplete.js',
-                'js/djplaces.js',
+                'djplaces/js/djplaces.js',
             )
         )
 

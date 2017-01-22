@@ -12,14 +12,22 @@
         <a href="{% url 'add_item' %}">Rent out your items</a>
     </li>
     {% endif %}
-<li>
-    <a href="{{ request.user.profile.facebook_url }}" target="_blank"><img src="{{ request.user.profile.picture_url }}"></a>
-</li>
-<li>
-    <a href="/logout/facebook"><img src="{% static 'app/images/fb_log_out.png' %}" height="25"></a>
-</li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img class="img-circle" src="{{ request.user.profile.picture_url }}">
+        </a>
+        <ul class="dropdown-menu">
+            {% if request.user.is_staff %}
+                <li><a href="{% url THEME_ADMIN_URL|default:"admin:index" %}"><i class="fa fa-cog"></i>Admin</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li>
+                <a id="account_logout" href="/logout/facebook"><img src="{% static 'app/images/fb_log_out.png' %}" height="25"></a>
+            </li>
+        </ul>
+    </li>
 {% else %}
-<li>
-    <a href="/login/facebook"><img src="{% static 'app/images/fb_log_in.png' %}" height="25"></a>
-</li>
+    <li>
+        <a href="/login/facebook"><img src="{% static 'app/images/fb_log_in.png' %}" height="25"></a>
+    </li>
 {% endif %}

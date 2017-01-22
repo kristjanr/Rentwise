@@ -38,8 +38,14 @@
                 })
                 .jcarouselPagination({
                     item: function(page) {
+
                         return '<a href="#' + page + '">' + page + '</a>';
                     }
                 });
     });
+    var total_items = $('.jcarousel').find('li').length;
+    if(total_items < 2)
+    {
+        $('.jcarousel-control-prev, .jcarousel-control-next, .jcarousel-pagination').hide();
+    }
 })(jQuery);

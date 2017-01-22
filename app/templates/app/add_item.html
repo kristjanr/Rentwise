@@ -32,8 +32,6 @@
                         <div class="control-label col-xs-2">
                         {% if field.name == 'categories' %}
                             <label for="id_categories">{{ 'categories' | verbose_name}}:</label>
-                        {% elif 'image' in field.name %}
-                            <label>Images:</label>
                         {% elif field.name != 'location' %}
                             {{ field.label_tag }}
                         {% endif %}

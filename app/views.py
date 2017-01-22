@@ -78,7 +78,7 @@ def search_items(context, request):
         table = ItemTable(items)
 
     if table:
-        RequestConfig(request, paginate={'per_page': 100}).configure(table)
+        RequestConfig(request).configure(table)
         context['table'] = table
     return render(request, 'app/index.html', context)
 
