@@ -26,15 +26,15 @@
         <div class="row">
             <div class="jcarousel-wrapper-landing">
                 <div class="jcarousel">
-                    <ul style="left: 0px; top: 0px;">
+                    <ul >
                         <li><img src="{% static 'app/images/first.jpg' %}" width="600px" height="400">
-                            <p>Join & rent items with YBuy.<br>From person. To person.</p>
+                            <div class="text-center">Join & rent items with YBuy.<br>From person. To person.</div>
                         </li>
                         <li><img src="{% static 'app/images/second.jpg' %}" width="600px" height="400">
-                            <p>Why buy a boat for that one-time rafting trip<br>you always wanted to go on?</p>
+                            <div class="text-center">Why buy a boat for that one-time rafting trip<br>you always wanted to go on?</div>
                         </li>
                         <li><img src="{% static 'app/images/third.jpg' %}" width="600px" height="400">
-                            <p>Join and earn passive income on items<br>you do not use regularly.</p>
+                            <div class="text-center">Join and earn passive income on items<br>you do not use regularly.</div>
                         </li>
                     </ul>
                 </div>
@@ -48,8 +48,10 @@
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">How it all works?</h2><br>
-                <p>It is all surprisingly simple. You can join us through Facebook. If you want to rent any of your items out, you can list them easily.</p>
-                <p>People can see all of the uploaded items, search for what they are seeking for and then contact eachother through Facebook to agree on the precise details.</p>
+                <p>It is all surprisingly simple. You can join us through Facebook. If you want to rent any of your
+                    items out, you can list them easily.</p>
+                <p>People can see all of the uploaded items, search for what they are seeking for and then contact
+                    eachother through Facebook to agree on the precise details.</p>
             </div>
         </div>
         {% if not request.user.is_authenticated %}
