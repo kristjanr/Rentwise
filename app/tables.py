@@ -21,6 +21,7 @@ class ItemTable(Table):
             'location',
             'user',
             'is_published',
+            'email_sent_to_user',
         )
         order_by = ('name',)
         attrs = {'class': 'paleblue'}

@@ -34,3 +34,10 @@ def send_emails(request, item):
     message = get_template('review_item_email.html').render(Context(context))
     staff_emails = [user.email for user in User.objects.filter(is_staff=True)]
     send_mail('Item Added', message, DEFAULT_FROM_EMAIL, staff_emails, html_message=message)
+
+
+def send_item_published_email_to_owner(request, item):
+    item_details_url = request.build_absolute_uri(reverse('view_item', args=(item.id,)))
+    context = dict(url=item_details_url)
+    message = get_template('item_published.html').render(Context(context))
+    send_mail('Item Published', message, DEFAULT_FROM_EMAIL, [item.user.email], html_message=message)

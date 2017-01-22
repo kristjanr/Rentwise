@@ -13,7 +13,7 @@ from geopy.distance import distance
 
 from app.models import Item, Image, Search, FoundItem
 from app.tables import FoundItemTable, ItemTable
-from app.varia import send_emails
+from app.varia import send_emails, send_item_published_email_to_owner
 from .forms import ItemForm, SearchForm
 
 
@@ -159,6 +159,10 @@ def publish_item(request, *args, **kwargs):
     item = get_object_or_404(Item, id=item_id) if item_id else None
     item.is_published = True
     item.save()
+    if not item.email_sent_to_user:
+        send_item_published_email_to_owner(request, item)
+        item.email_sent_to_user = True
+        item.save()
     return redirect('view_item', item.id)
 
 

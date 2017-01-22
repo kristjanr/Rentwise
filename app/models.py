@@ -57,6 +57,7 @@ class Item(models.Model):
     location = LocationField(base_field='place')
     is_published = models.BooleanField(default=False, verbose_name='Is published', )
     created_at = models.DateTimeField(auto_now=True, verbose_name='Added on', )
+    email_sent_to_user = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

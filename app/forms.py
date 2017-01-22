@@ -56,6 +56,7 @@ class ItemForm(MyForm, S3DirectUploadForm):
             'user',
             'renters',
             'is_published',
+            'email_sent_to_user',
         ]
 
         widgets = {
