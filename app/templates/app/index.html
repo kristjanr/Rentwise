@@ -14,7 +14,7 @@
 {% block nav %}
 <ul class="nav navbar-nav navbar-right">
     <li>
-        <a href="#how-it-works">How it works</a>
+        <a href="#how-it-works">How it works?</a>
     </li>
     {% include "nav_block_common.html" %}
 </ul>
@@ -24,15 +24,18 @@
 <div class="content-section-a">
     <div class="container center">
         <div class="row">
-            <div class="jcarousel-wrapper">
+            <div class="jcarousel-wrapper-landing">
                 <div class="jcarousel">
                     <ul style="left: 0px; top: 0px;">
                         <li><img src="{% static 'app/images/first.jpg' %}" width="600px" height="400">
-                            <p>First image text</p></li>
+                            <p>Join & rent items with YBuy.<br>From person. To person.</p>
+                        </li>
                         <li><img src="{% static 'app/images/second.jpg' %}" width="600px" height="400">
-                            <p>Second image text</p></li>
+                            <p>Why buy a boat for that one-time rafting trip<br>you always wanted to go on?</p>
+                        </li>
                         <li><img src="{% static 'app/images/third.jpg' %}" width="600px" height="400">
-                            <p>Third image text</p></li>
+                            <p>Join and earn passive income on items<br>you do not use regularly.</p>
+                        </li>
                     </ul>
                 </div>
                 <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
@@ -44,12 +47,9 @@
             <div class="center text-center">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
-                <h2 class="section-heading">How it works?</h2><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pulvinar felis vitae felis
-                sagittis condimentum. Cras pharetra, mauris eget dignissim finibus, turpis lectus fringilla diam, eget
-                pretium ligula metus rutrum tellus. Nulla scelerisque condimentum lectus a luctus. Phasellus justo odio,
-                faucibus a felis eu, sodales gravida augue. Nullam vel sem ac quam iaculis congue quis a ex. Aliquam non
-                volutpat ante.
+                <h2 class="section-heading">How it all works?</h2><br>
+                <p>It is all surprisingly simple. You can join us through Facebook. If you want to rent any of your items out, you can list them easily.</p>
+                <p>People can see all of the uploaded items, search for what they are seeking for and then contact eachother through Facebook to agree on the precise details.</p>
             </div>
         </div>
         {% if not request.user.is_authenticated %}
@@ -68,9 +68,9 @@
             <div class="center text-center" id="statistics">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
-                <h2 class="section-heading">Statistics</h2><br>
-                <p>Total number of Items currently up for rent: {{ published_items }}</p>
-                <p>Total number of deals done: {{ fb_profile_clicks }}</p>
+                <h2 class="section-heading">How many people use YBuy?</h2><br>
+                <p>You can currently rent {{ published_items }} different items.</p>
+                <p>{{ fb_profile_clicks }} people have rented through YBuy.</p>
             </div>
         </div>
         {% include "app/item_search.html" %}

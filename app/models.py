@@ -50,9 +50,9 @@ class Item(models.Model):
     name = models.TextField(max_length=100, validators=[MinLengthValidator(5)], verbose_name='Name', )
     description = models.TextField(max_length=5000, validators=[MinLengthValidator(20)], verbose_name='Description', )
     price_per_day = models.DecimalField(max_digits=6, decimal_places=2,
-                                        validators=[max_5000, positive_decimal], verbose_name='Price £/day', )
+                                        validators=[max_5000, positive_decimal], verbose_name='Price (£/day)', )
     minimum_rental_period = models.IntegerField(validators=[min_1, max_500], verbose_name='Min. days', )
-    estimated_value = models.IntegerField(validators=[min_1], verbose_name='Value £', )
+    estimated_value = models.IntegerField(validators=[min_1], verbose_name='Value (£)', )
     place = models.CharField(max_length=250, verbose_name='Location', )
     location = LocationField(base_field='place')
     is_published = models.BooleanField(default=False, verbose_name='Is published', )

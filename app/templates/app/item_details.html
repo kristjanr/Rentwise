@@ -15,8 +15,7 @@
 <div class="col-xs-12 form-horizontal">
     {% if request.user == item.user and not item.is_published and new == True %}
     <div class="row">
-        <p class="text-center">Your ad is sucessfully uploaded! {{ pk }} It is unpublished and under review. It will be
-            published and will appear in search results within 24 hours after you added it.</p>
+        <p class="text-center">Your item has been uploaded successfully! It is currently unpublished and will be reviewed within 24 hours.</p>
     </div>
     {% endif %}
 
@@ -104,7 +103,7 @@
         <div class="col-xs-8">
             <form action="{% url 'contact_owner' pk=item.id%}" method="post" id="contact-owner"><br>
                 {% csrf_token %}
-                <input type="submit" class="btn btn-primary" value="I'm interested" name="submit">
+                <input type="submit" class="btn btn-primary" value="Contact the owner" name="submit">
             </form>
             <p class="form-control-static"></p>
         </div>

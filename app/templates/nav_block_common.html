@@ -1,11 +1,11 @@
 {% load staticfiles %}
 <li>
-    <a href="#contact">Contact</a>
+    <a href="#contact">Contact us</a>
 </li>
 {% if request.user.is_authenticated %}
     {% if request.user.item_set.all|length > 0 %}
     <li>
-        <a href="{% url 'add_item' %}">Add an item for rent</a>
+        <a href="{% url 'add_item' %}">Add another item</a>
     </li>
     {% else %}
     <li>

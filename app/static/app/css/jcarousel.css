@@ -12,6 +12,20 @@
             box-shadow: 0 0 2px #999;
 }
 
+.jcarousel-wrapper-landing {
+    margin: 20px auto;
+    position: relative;
+    border: 10px solid #fff;
+    width: 620px;
+    height: 450px;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 0 2px #999;
+       -moz-box-shadow: 0 0 2px #999;
+            box-shadow: 0 0 2px #999;
+}
+
 
 .jcarousel-wrapper .photo-credits {
     position: absolute;

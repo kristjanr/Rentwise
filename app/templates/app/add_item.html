@@ -16,11 +16,9 @@
             <hr class="section-heading-spacer">
             <div class="clearfix"></div>
             <h2 class="section-heading">Description of the process</h2><br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pulvinar felis vitae felis
-            sagittis condimentum. Cras pharetra, mauris eget dignissim finibus, turpis lectus fringilla diam, eget
-            pretium ligula metus rutrum tellus. Nulla scelerisque condimentum lectus a luctus. Phasellus justo odio,
-            faucibus a felis eu, sodales gravida augue. Nullam vel sem ac quam iaculis congue quis a ex. Aliquam non
-            volutpat ante.
+            <p>You can upload your item after filling in various details and adding images of it.</p>
+            <p>We will review the listing within 24 hours and notify you when it is visible for everyone.</p>
+            <p>People can find your items by searching. They can then contact you through Facebook.</p>
         </div>
         <div class="row">
             <form action="{% url 'add_item' %}" method="post" id="add-item"><br>
@@ -30,11 +28,11 @@
                 <div class="row {% if 'image' in field.name and field.name != 'image01' %} hidden {% endif %}">
                     <div class="col-xs-12">
                         <div class="control-label col-xs-2">
-                        {% if field.name == 'categories' %}
+                            {% if field.name == 'categories' %}
                             <label for="id_categories">{{ 'categories' | verbose_name}}:</label>
-                        {% elif field.name != 'location' %}
+                            {% elif field.name != 'location' %}
                             {{ field.label_tag }}
-                        {% endif %}
+                            {% endif %}
                         </div>
                         {% if field.errors %}
                         <div class="col-xs-8">
