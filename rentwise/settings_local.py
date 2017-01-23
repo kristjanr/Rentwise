@@ -19,3 +19,5 @@ TEMPLATES = [
         },
     },
 ]
+
+ALLOWED_HOSTS = ['local.rentwise.herokuapp.com', '128.0.0.1',]

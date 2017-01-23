@@ -1,4 +1,3 @@
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 import os
 
@@ -11,7 +10,6 @@ SECURE_HSTS_SECONDS = 3600
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = False
-
 
 TEMPLATES = [
     {
@@ -32,3 +30,5 @@ TEMPLATES = [
         },
     },
 ]
+
+ALLOWED_HOSTS = ['rentwise.herokuapp.com', ]
