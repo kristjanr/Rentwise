@@ -229,7 +229,6 @@ S3DIRECT_DESTINATIONS = {
         'allowed': ['image/jpeg', 'image/png', 'image/gif', ],
         'cache_control': 'max-age=2592000',  # Default no cache-control
         'content_disposition': 'attachment',  # Default no content disposition
-        'content_length_range': (5000, 20000000),  # Default allow any size
     }
 }
 S3DIRECT_URL_STRUCTURE = 'https://{1}.{0}'
