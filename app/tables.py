@@ -23,7 +23,7 @@ class ItemTable(Table):
             'is_published',
             'email_sent_to_user',
         )
-        order_by = ('name',)
+        order_by = ('-created_at',)
         attrs = {'class': 'paleblue'}
 
 
@@ -64,5 +64,5 @@ class FoundItemTable(Table):
             'created_at',
             'distance',
         )
-        order_by = ('name',)
+        order_by = ('-created_at',)
         attrs = {"class": "paleblue"}

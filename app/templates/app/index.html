@@ -2,13 +2,37 @@
 {% load staticfiles %}
 {% block head_title %}Home{% endblock %}
 {% block extrahead %}
-<link href="{% static 'app/css/jcarousel.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'app/css/jcarousel_landing.css' %}" rel="stylesheet" type="text/css">
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jcarousel/0.3.4/jquery.jcarousel-autoscroll.min.js"></script>
 <script type="text/javascript" src="{% static 'app/js/landing_page_jcarousel.js' %}" defer></script>
+<style>
+.navbar-default {
+    background-color: rgba(248, 248, 248, 0);
+    border-color: rgba(231, 231, 231, 0);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+}
 
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+.fa {
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+    color: white;
+}
+body {
+    padding-top: 0px;
+}
+
+.fb-login-button {
+
+    position: relative;
+    top: -80px;
+}
+
+</style>
 {% endblock %}
 
 {% block nav %}
@@ -18,31 +42,51 @@
     </li>
     {% include "nav_block_common.html" %}
 </ul>
+
 {% endblock %}
 
 {% block body %}
+<div class="row">
+    <div class="jcarousel-wrapper">
+        <div class="jcarousel">
+            <ul>
+                <li>
+                    <div class="image">
+                        <img src="{% static 'app/images/first.jpg' %}">
+                        <h1>Join & rent items with YBuy.<br>From person. To person.</h1>
+                    </div>
+                </li>
+                <li>
+                    <div class="image"><img src="{% static 'app/images/second.jpg' %}">
+                        <h1>Why buy a boat for that one-time rafting trip<br>you always wanted to go
+                            on?
+                        </h1>
+                    </div>
+                </li>
+                <li>
+                    <div class="image"><img src="{% static 'app/images/third.jpg' %}">
+                        <h1>Join and earn passive income on items<br>you do not use regularly.</h1>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+        <p class="jcarousel-pagination"></p>
+    </div>
+    {% if not request.user.is_authenticated %}
+    <div class="center text-center fb-login-button">
+        <div class="center" style="display:inline-block;">
+            <div class="clearfix"></div>
+            <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
+                <span class="fa fa-facebook"></span>Log in with Facebook</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
 <div class="content-section-a">
     <div class="container center">
-        <div class="row">
-            <div class="jcarousel-wrapper-landing">
-                <div class="jcarousel">
-                    <ul >
-                        <li><img src="{% static 'app/images/first.jpg' %}" width="600px" height="400">
-                            <div class="text-center">Join & rent items with YBuy.<br>From person. To person.</div>
-                        </li>
-                        <li><img src="{% static 'app/images/second.jpg' %}" width="600px" height="400">
-                            <div class="text-center">Why buy a boat for that one-time rafting trip<br>you always wanted to go on?</div>
-                        </li>
-                        <li><img src="{% static 'app/images/third.jpg' %}" width="600px" height="400">
-                            <div class="text-center">Join and earn passive income on items<br>you do not use regularly.</div>
-                        </li>
-                    </ul>
-                </div>
-                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-                <p class="jcarousel-pagination"></p>
-            </div>
-        </div>
+
         <div class="row" id="how-it-works">
             <div class="center text-center">
                 <hr class="section-heading-spacer">
@@ -54,18 +98,6 @@
                     eachother through Facebook to agree on the precise details.</p>
             </div>
         </div>
-        {% if not request.user.is_authenticated %}
-        <div class="row">
-            <div class="center text-center">
-                <hr class="section-heading-spacer">
-                <div class="center" style="display:inline-block;">
-                    <div class="clearfix"></div>
-                    <a href="/login/facebook" class="btn btn-block btn-social btn-facebook">
-                        <span class="fa fa-facebook"></span>Log in with Facebook</a>
-                </div>
-            </div>
-        </div>
-        {% endif %}
         <div class="row">
             <div class="center text-center" id="statistics">
                 <hr class="section-heading-spacer">

@@ -51,6 +51,7 @@ def search_items(context, request):
             search_data['user'] = request.user
         search = Search(**search_data)
         search.save()
+        context['searched'] = True
 
     # Cannot populate location field. Google places api js populates it based on the place field.
     form = SearchForm(data=dict(what=what, place=place, category=category))
