@@ -1,0 +1,153 @@
+[
+  {
+    "model": "app.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "facebook_id": "1595851600430548",
+      "picture_url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/13612199_1387559481259762_5304699294960362497_n.jpg?oh=351be286e1dc3075d1da8f2f32da92c5&oe=59045CF4",
+      "place": null,
+      "location": null
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 1,
+    "fields": {
+      "name": "Entertainment"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 2,
+    "fields": {
+      "name": "Technology"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 3,
+    "fields": {
+      "name": "Home Equipment"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 4,
+    "fields": {
+      "name": "Outdoors & Sports"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 5,
+    "fields": {
+      "name": "Machinery & Transport"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 6,
+    "fields": {
+      "name": "Luxury Goods & Clothing"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 7,
+    "fields": {
+      "name": "Office & Business"
+    }
+  },
+  {
+    "model": "app.item",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "name": "First Item Name is Here, yes!",
+      "description": "This is the description of first item I am renting out\r\nThis is the description of first item I am renting outThis is the description of first item I am renting out",
+      "price_per_day": "2.00",
+      "minimum_rental_period": 3,
+      "estimated_value": 4,
+      "place": "51b Circular Road, Singapore",
+      "location": "1.285812,103.84953270000005",
+      "is_published": true,
+      "created_at": "2017-01-29T07:55:25.409Z",
+      "email_sent_to_user": true,
+      "renters": [],
+      "categories": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "app.item",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "name": "This is the Second item. It's name field is this. Yes yes.",
+      "description": "This is the Second item. It's description field is this. Yes yes. This is the Second item. It's description field is this. Yes yes. This is the Second item. It's description field is this. Yes yes.",
+      "price_per_day": "400.00",
+      "minimum_rental_period": 30,
+      "estimated_value": 400,
+      "place": "Somerset Singapore",
+      "location": "1.3004708,103.83869260000006",
+      "is_published": true,
+      "created_at": "2017-01-29T08:09:37.488Z",
+      "email_sent_to_user": true,
+      "renters": [],
+      "categories": [
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "app.image",
+    "pk": 1,
+    "fields": {
+      "item": 1,
+      "url": "https://ybuy.s3-eu-west-2.amazonaws.com/uploads%2Fimages%2F37e928f4-e5f8-11e6-bd82-f45c8991cf33.gif",
+      "created_at": "2017-01-29T07:55:06.661Z"
+    }
+  },
+  {
+    "model": "app.image",
+    "pk": 2,
+    "fields": {
+      "item": 1,
+      "url": "https://ybuy.s3-eu-west-2.amazonaws.com/uploads%2Fimages%2F3c3b70f6-e5f8-11e6-8002-f45c8991cf33.png",
+      "created_at": "2017-01-29T07:55:06.663Z"
+    }
+  },
+  {
+    "model": "app.image",
+    "pk": 3,
+    "fields": {
+      "item": 2,
+      "url": "https://ybuy.s3-eu-west-2.amazonaws.com/uploads%2Fimages%2F33f8575e-e5fa-11e6-96b1-f45c8991cf33.png",
+      "created_at": "2017-01-29T08:09:26.589Z"
+    }
+  },
+  {
+    "model": "app.image",
+    "pk": 4,
+    "fields": {
+      "item": 2,
+      "url": "https://ybuy.s3-eu-west-2.amazonaws.com/uploads%2Fimages%2F37730c62-e5fa-11e6-9d7b-f45c8991cf33.png",
+      "created_at": "2017-01-29T08:09:26.591Z"
+    }
+  },
+  {
+    "model": "app.image",
+    "pk": 5,
+    "fields": {
+      "item": 2,
+      "url": "https://ybuy.s3-eu-west-2.amazonaws.com/uploads%2Fimages%2F3eb3e174-e5fa-11e6-9116-f45c8991cf33.gif",
+      "created_at": "2017-01-29T08:09:26.594Z"
+    }
+  }
+]
