@@ -40,12 +40,12 @@ def search_items(context, request):
     if not form.is_valid():
         return render(request, 'app/index.html', context)
     what = form.cleaned_data['what'].strip()
-    place = form.cleaned_data['place'].strip()
-    location = form.cleaned_data['location'].strip()
+    place = form.cleaned_data['place']
+    location = form.cleaned_data['location']
     category = form.cleaned_data['category']
 
     search = None
-    if what or place or category:
+    if what or category or place or location:
         search_data = form.cleaned_data
         if request.user.is_authenticated():
             search_data['user'] = request.user
@@ -53,7 +53,7 @@ def search_items(context, request):
         search.save()
         context['searched'] = True
 
-    # Cannot populate location field. Google places api js populates it based on the place field.
+    # Cannot repopulate location field. Google places api js populates it based on the place field.
     form = SearchForm(data=dict(what=what, place=place, category=category))
     context['form'] = form
 
