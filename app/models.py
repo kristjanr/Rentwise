@@ -13,8 +13,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     facebook_id = models.TextField(max_length=500)
     picture_url = models.TextField(max_length=500)
-    place = models.CharField(max_length=250, null=True)
-    location = LocationField(base_field='place', null=True)
 
     @property
     def facebook_url(self):
