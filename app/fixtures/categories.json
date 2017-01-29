@@ -1,0 +1,44 @@
+[
+  {
+    "model": "app.category",
+    "pk": 1,
+    "fields": {
+      "name": "Entertainment"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 2,
+    "fields": {
+      "name": "Technology"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 3,
+    "fields": {
+      "name": "Home Equipment"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 4,
+    "fields": {
+      "name": "Outdoors & Sports"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 5,
+    "fields": {
+      "name": "Machinery & Transport"
+    }
+  },
+  {
+    "model": "app.category",
+    "pk": 6,
+    "fields": {
+      "name": "Luxury Goods & Clothing"
+    }
+  }
+]

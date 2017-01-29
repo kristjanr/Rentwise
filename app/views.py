@@ -14,11 +14,12 @@ from geopy.distance import distance
 from app.models import Item, Image, Search, FoundItem
 from app.tables import FoundItemTable, ItemTable
 from app.varia import send_emails, send_item_published_email_to_owner
+from rentwise.settings_default import LOGIN_URL_FACEBOOK
 from .forms import ItemForm, SearchForm
 
 
 def log_in_view(request):
-    return redirect('/login/facebook/?next=' + request.GET.get('next', ''))
+    return redirect(LOGIN_URL_FACEBOOK + '?next=' + request.GET.get('next', ''))
 
 
 def home(request):

@@ -1,0 +1,11 @@
+[
+  {
+    "model": "app.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "facebook_id": "1595851600430548",
+      "picture_url": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/13612199_1387559481259762_5304699294960362497_n.jpg?oh=351be286e1dc3075d1da8f2f32da92c5&oe=59045CF4"
+    }
+  }
+]

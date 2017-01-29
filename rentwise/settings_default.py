@@ -148,6 +148,7 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture
 
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGIN_URL = reverse_lazy('login')
+LOGIN_URL_FACEBOOK = '/login/facebook/'
 
 # These URLs are used on different steps of the auth process, some for successful results and others for
 # error situations.
