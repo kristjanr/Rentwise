@@ -18,17 +18,11 @@ from django.urls import reverse_lazy
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
+SECRET_KEY = '97wweejib1af0_&9glcl#$vteh6q%!6%_vcrc^wt_%(ed^6wx*'
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "97wweejib1af0_&9glcl#$vteh6q%!6%_vcrc^wt_%(ed^6wx*"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.sites',
@@ -182,12 +176,12 @@ MIGRATION_MODULES = {
 }
 
 # Google maps api key
-MAPS_API_KEY = 'AIzaSyCn_Tc8zAWwsTmDgYmZLfuSGX2VyGN0OEo'
+MAPS_API_KEY = os.environ['MAPS_API_KEY']
 
 # Amazon web services keys
-AWS_SECRET_ACCESS_KEY = '4cr2LSorfsSRznLKp3gVu9A9AdNg53oVd/elHJGA'
-AWS_ACCESS_KEY_ID = 'AKIAJQIO7VQFYZF7MKSA'
-AWS_STORAGE_BUCKET_NAME = 'ybuy'
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 
 # Settings for images uploading
 # The region of your bucket, more info:
