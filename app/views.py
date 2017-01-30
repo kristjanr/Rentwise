@@ -19,20 +19,34 @@ from .forms import ItemForm, SearchForm
 
 
 def log_in_view(request):
+    """
+    Returns a redirect to facebook login page which will then after logging in
+    redirects to the page in the next parameter.
+    """
     return redirect(LOGIN_URL_FACEBOOK + '?next=' + request.GET.get('next', ''))
 
 
 def home(request):
+    """
+    Landing Page View.
+    Provides stats about user activity on the page.
+    Handles search query.
+    """
     published_items = Item.objects.filter(is_published=True).count()
     fb_profile_clicks = sum(item.renters.count() for item in Item.objects.all())
     context = dict(
         published_items=published_items,
         fb_profile_clicks=fb_profile_clicks,
     )
-    return search_items(context, request)
+    context = search_items(context, request)
+    return render(request, 'app/index.html', context)
 
 
 def search_items(context, request):
+    """
+    Method to handle item search.
+    Validates SearchForm from GET request, persists the search specifics and returns context with item table.
+    """
     if request.method != 'GET':
         context['form'] = SearchForm()
         return render(request, 'app/index.html', context)
@@ -82,11 +96,14 @@ def search_items(context, request):
     if table:
         RequestConfig(request).configure(table)
         context['table'] = table
-    return render(request, 'app/index.html', context)
+    return context
 
 
 @method_decorator(login_required, name='dispatch')
 class ItemAddView(FormView):
+    """
+    Checks for valid form in POST request, saves item and sends emails.
+    """
     form_class = ItemForm
 
     def get(self, request, *args, **kwargs):
@@ -124,6 +141,9 @@ class ItemAddView(FormView):
 
 @method_decorator(login_required, name='dispatch')
 class ItemDetailView(DetailView):
+    """
+    Shows unpublished item details to owner and staff Users.
+    """
     template_name = 'app/item_details.html'
     model = Item
 
@@ -144,50 +164,69 @@ class ItemDetailView(DetailView):
 
 @method_decorator(login_required, name='dispatch')
 class ItemDeleteView(DeleteView):
+    """
+    Allows only the owner or staff User to delete Item.
+    """
     model = Item
     success_url = reverse_lazy('home')
 
     def post(self, request, *args, **kwargs):
         item_id = kwargs.get('pk')
         item = get_object_or_404(Item, id=item_id) if item_id else None
-        if item and (item.user != request.user or request.user.is_staff):
+        if item and (item.user == request.user or request.user.is_staff):
             return super().post(request, *args, **kwargs)
         return redirect('view_item', item.id)
 
 
 @staff_member_required
 def publish_item(request, *args, **kwargs):
+    """
+    Allows staff to publish item.
+    """
     item_id = kwargs.get('pk')
     item = get_object_or_404(Item, id=item_id) if item_id else None
-    item.is_published = True
-    item.save()
-    if not item.email_sent_to_user:
-        send_item_published_email_to_owner(request, item)
-        item.email_sent_to_user = True
+    if item and request.user.is_staff:
+        item.is_published = True
         item.save()
+        if not item.email_sent_to_user:
+            send_item_published_email_to_owner(request, item)
+            item.email_sent_to_user = True
+            item.save()
     return redirect('view_item', item.id)
 
 
 @staff_member_required
 def unpublish_item(request, *args, **kwargs):
+    """
+    Allows staff to unpublish item.
+    """
     item_id = kwargs.get('pk')
     item = get_object_or_404(Item, id=item_id) if item_id else None
-    item.is_published = False
-    item.save()
+    if item and request.user.is_staff:
+        item.is_published = False
+        item.save()
     return redirect('view_item', item.id)
 
 
 def logout_view(request):
+    """
+    Logs out User and redirects to landing page.
+    """
     logout(request)
     return redirect('home')
 
 
 @login_required
 def contact_owner(request, pk):
+    """
+    Adds the requesting User as a renter to the given item_id
+    if the requestin User is not the owner of the Item and
+    the user has not already been added.
+    """
     if not pk:
         return redirect('home')
     item = get_object_or_404(Item, id=pk) if pk else None
-    if not item.renters.filter(id=request.user.id) and request.user != item.user:
+    if not item.renters.filter(id=request.user.id) and request.user != item.user and not request.user.is_staff:
         item.renters.add(request.user)
         item.save()
     return redirect(item.user.profile.facebook_url)

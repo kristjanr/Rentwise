@@ -3,7 +3,10 @@ from app.models import Item
 
 
 def verbose_name(fieldname):
-    return Item._meta.get_field(fieldname).verbose_name  # put here whatever you would like to return
+    """
+    Returns Item's verbose_name of the given fieldname.
+    """
+    return Item._meta.get_field(fieldname).verbose_name
 
 register = template.Library()
 

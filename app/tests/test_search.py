@@ -5,7 +5,7 @@ from app.models import Item, Search, FoundItem
 
 
 class SearchTest(TestCase):
-    fixtures = ['categories', 'auth', 'items']
+    fixtures = ['categories', 'users', 'items']
 
     def test_with_unpublished(self):
         for i in Item.objects.all():

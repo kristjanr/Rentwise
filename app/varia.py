@@ -8,6 +8,10 @@ from rentwise.settings import DEFAULT_FROM_EMAIL
 
 
 def save_profile(backend, user, response, *args, **kwargs):
+    """
+    Included in the SOCIAL_AUTH_PIPELINE to fill the facebook profile id and picture url for profile.
+    Also used for automatically setting superuser rights for hardcoded usernames.
+    """
     if backend.name != 'facebook' or user.profile.facebook_id:
         return
 
@@ -29,6 +33,9 @@ def save_profile(backend, user, response, *args, **kwargs):
 
 
 def send_emails(request, item):
+    """
+    Sends emails to all the Users with is_staff=True persmissions about the given item.
+    """
     item_details_url = request.build_absolute_uri(reverse('view_item', args=(item.id,)))
     context = dict(url=item_details_url)
     message = get_template('review_item_email.html').render(Context(context))
@@ -37,6 +44,9 @@ def send_emails(request, item):
 
 
 def send_item_published_email_to_owner(request, item):
+    """
+    Sends email to the owner User of the given Item that the Item is published.
+    """
     item_details_url = request.build_absolute_uri(reverse('view_item', args=(item.id,)))
     context = dict(url=item_details_url)
     message = get_template('item_published.html').render(Context(context))

@@ -7,7 +7,7 @@ from app.models import Item
 
 
 class AddItemTest(TestCase):
-    fixtures = ['categories', 'auth']
+    fixtures = ['categories', 'users']
 
     def test_require_login(self):
         response = self.client.get(reverse('add_item'), follow=True)

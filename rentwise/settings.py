@@ -3,6 +3,10 @@ import os
 
 import re
 
+"""
+Loads settings file based on the value of the MODE environment variable.
+"""
+
 MODE = os.environ.get('MODE') or 'local'
 
 

@@ -7,6 +7,9 @@ from app.models import Item
 
 
 class ItemTable(Table):
+    """
+    Table used in search results when no location was entered during search.
+    """
     def render_name(self, record):
         return mark_safe('<a href=%s>%s</a>' % (
             record.get_absolute_url(),
@@ -27,9 +30,10 @@ class ItemTable(Table):
         attrs = {'class': 'paleblue'}
 
 
-# Name	Price £/Day	Min. Days	Value £	Place	Added On
-
 class FoundItemTable(Table):
+    """
+    Table used in search results when a location was entered during search.
+    """
     name = Column(accessor='item.name')
     price_per_day = Column(accessor='item.price_per_day')
     minimum_rental_period = Column(accessor='item.minimum_rental_period')

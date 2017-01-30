@@ -7,7 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from .widgets import LocationWidget
 
 """
-Copied this from djplaces package in order to include own customized LocationWidget
+Copied this from djplaces package in order to include a customized LocationWidget, which sets the english language
+when downloading google maps api javascript
 """
 
 
@@ -32,5 +33,6 @@ class LocationField(CharField):
         return name, path, args, kwargs
 
     def formfield(self, **kwargs):
+        #
         kwargs['widget'] = LocationWidget
         return super(LocationField, self).formfield(**kwargs)

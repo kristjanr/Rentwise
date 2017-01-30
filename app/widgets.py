@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 """
-Copied this from djplaces package to specify the google maps js language (added &language=en).
+This is a modified widget from djplaces package to specify the google maps js language (added &language=en).
 
 """
 

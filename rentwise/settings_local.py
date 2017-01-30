@@ -1,3 +1,4 @@
+# Enable debug mode. Makes app development easier. Must be turned off on live environment.
 DEBUG = True
 
 TEMPLATES = [

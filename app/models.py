@@ -10,6 +10,9 @@ from app.fields import LocationField
 
 
 class Profile(models.Model):
+    """
+    Extends the User model through one to one relationship in order to keep the FB-specific data.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     facebook_id = models.TextField(max_length=500)
     picture_url = models.TextField(max_length=500)
@@ -24,11 +27,17 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """
+    Assures that a Profile is created after a User is created.
+    """
     if created:
         Profile.objects.create(user=instance)
 
 
 class Category(models.Model):
+    """
+    Contains the categories the Item can have.
+    """
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -42,6 +51,9 @@ max_5000 = MaxValueValidator(5000)
 
 
 class Item(models.Model):
+    """
+    Item model with all the necessary validators on the fields, which are used when adding an Item.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Owner', )
     renters = models.ManyToManyField(User, related_name='items')
     categories = models.ManyToManyField(Category, related_name='items', verbose_name='Categories', )
@@ -65,6 +77,9 @@ class Item(models.Model):
 
 
 class Image(models.Model):
+    """
+    The Image model - every Item can have multiple Images.
+    """
     item = models.ForeignKey('item', on_delete=models.CASCADE, )
     url = models.URLField()
     created_at = models.DateTimeField(auto_now=True)
@@ -77,6 +92,9 @@ class Image(models.Model):
 
 
 class Search(models.Model):
+    """
+    Search model to record what searches have been done.
+    """
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True,
                                  verbose_name='Filter by category', )
@@ -90,6 +108,9 @@ class Search(models.Model):
 
 
 class FoundItem(models.Model):
+    """
+    This is needed to be able to sort and show the distance column at the search results table.
+    """
     search = models.ForeignKey(Search, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     distance = models.FloatField(verbose_name='Distance (miles)', null=True)

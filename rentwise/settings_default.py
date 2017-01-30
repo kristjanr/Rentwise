@@ -141,6 +141,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SITE_ID = '1'
 
+# Facebook app and auth settings
 SOCIAL_AUTH_FACEBOOK_KEY = '191007684701647'
 SOCIAL_AUTH_FACEBOOK_SECRET = '4ff6ba0463f68543fc8743094f8ffc7a'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile', ]
@@ -153,20 +154,11 @@ LOGIN_URL_FACEBOOK = '/login/facebook/'
 # These URLs are used on different steps of the auth process, some for successful results and others for
 # error situations.
 
-# SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('home')
-# Used to redirect the user once the auth process ended successfully. The value of ?next=/foo is used if it was present
-
-SOCIAL_AUTH_LOGIN_ERROR_URL = reverse_lazy('home')
 # URL where the user will be redirected in case of an error
+SOCIAL_AUTH_LOGIN_ERROR_URL = reverse_lazy('home')
 
-# SOCIAL_AUTH_LOGIN_URL = '/login-url/'
-# Is used as a fallback for LOGIN_ERROR_URL
-
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
 # The user will be redirected to this URL when a social account is disconnected
-
-# SOCIAL_AUTH_INACTIVE_USER_URL = '/inactive-user/'
-# Inactive users can be redirected to this URL when trying to authenticate.
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
 
 SOCIAL_AUTH_USER_MODEL = 'auth.User'
 
@@ -189,31 +181,18 @@ MIGRATION_MODULES = {
     'sites': 'rentwise.migrations.sites',
 }
 
+# Google maps api key
 MAPS_API_KEY = 'AIzaSyCn_Tc8zAWwsTmDgYmZLfuSGX2VyGN0OEo'
 
-# AWS keys
+# Amazon web services keys
 AWS_SECRET_ACCESS_KEY = '4cr2LSorfsSRznLKp3gVu9A9AdNg53oVd/elHJGA'
 AWS_ACCESS_KEY_ID = 'AKIAJQIO7VQFYZF7MKSA'
 AWS_STORAGE_BUCKET_NAME = 'ybuy'
 
+# Settings for images uploading
 # The region of your bucket, more info:
 # http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
 S3DIRECT_REGION = 'eu-west-2'
-
-
-# Destinations, with the following keys:
-#
-# key [required] Where to upload the file to, can be either:
-#     1. '/' = Upload to root with the original filename.
-#     2. 'some/path' = Upload to some/path with the original filename.
-#     3. functionName = Pass a function and create your own path/filename.
-# auth [optional] An ACL function to whether the current Django user can perform this action.
-# allowed [optional] List of allowed MIME types.
-# acl [optional] Give the object another ACL rather than 'public-read'.
-# cache_control [optional] Cache control headers, eg 'max-age=2592000'.
-# content_disposition [optional] Useful for sending files as attachments.
-# bucket [optional] Specify a different bucket for this particular object.
-# server_side_encryption [optional] Encryption headers for buckets that require it.
 
 
 def path_filename(filename):
@@ -234,6 +213,7 @@ S3DIRECT_DESTINATIONS = {
 }
 S3DIRECT_URL_STRUCTURE = 'https://{1}.{0}'
 
+# Email settings
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 EMAIL_HOST = 'smtp.gmail.com'

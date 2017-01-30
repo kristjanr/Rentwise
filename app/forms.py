@@ -5,20 +5,29 @@ from app.models import Item, Search
 
 
 class MyForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.add_class()
+    """
+    A class to add some attributes to html elements.
+    """
 
-    def add_class(self):
-        for f in self.fields.values():
-            w = f.widget
-            w.attrs.update({
-                'class': 'form-control',
-                'data-toggle': 'tooltip',
-            })
+
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.add_class()
+
+
+def add_class(self):
+    for f in self.fields.values():
+        w = f.widget
+        w.attrs.update({
+            'class': 'form-control',
+            'data-toggle': 'tooltip',
+        })
 
 
 class S3DirectUploadForm(forms.Form):
+    """
+    Fields for uploading images
+    """
     image01 = forms.URLField(widget=S3DirectWidget(dest='images_destination'))
     image02 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
     image03 = forms.URLField(widget=S3DirectWidget(dest='images_destination'), required=False)
@@ -50,6 +59,9 @@ tooltips = {
 
 
 class ItemForm(MyForm, S3DirectUploadForm):
+    """
+    The form used for adding an Item.
+    """
     class Meta:
         model = Item
         exclude = [
@@ -74,6 +86,9 @@ class ItemForm(MyForm, S3DirectUploadForm):
 
 
 class SearchForm(forms.ModelForm):
+    """
+    The form used for searching Items.
+    """
     class Meta:
         model = Search
         fields = [
