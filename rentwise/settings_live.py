@@ -32,3 +32,6 @@ TEMPLATES = [
 ]
 
 ALLOWED_HOSTS = ['rentwise.herokuapp.com', ]
+WHITENOISE_AUTOREFRESH = None
+STATIC_HOST = 'https://d39cnotbzpr2wz.cloudfront.net'
+STATIC_URL = STATIC_HOST + '/static/'
