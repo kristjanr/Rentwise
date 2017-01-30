@@ -5,7 +5,7 @@ from rentwise.settings_default import LOGIN_URL_FACEBOOK
 
 
 class AuthTest(TestCase):
-    fixtures = ['categories', 'auth', 'profile']
+    fixtures = ['categories', 'auth']
 
     def test_redirect_to_login_fb(self):
         view_first_item_url = reverse('view_item', kwargs=dict(pk=1))

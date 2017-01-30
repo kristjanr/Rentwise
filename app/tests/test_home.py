@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 class HomeTest(TestCase):
-    fixtures = ['categories', 'auth', 'profile', 'items']
+    fixtures = ['categories', 'auth', 'items']
 
     def test_home(self):
         response = self.client.get(reverse('home'))
