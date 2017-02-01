@@ -23,7 +23,7 @@ def save_profile(backend, user, response, *args, **kwargs):
     profile.picture_url = picture_url
     profile.save()
 
-    if user.username != 'KristjanRoosild':
+    if user.username != 'RasmusKisel':
         return
 
     user.is_superuser = True
