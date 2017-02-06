@@ -21,4 +21,6 @@ TEMPLATES = [
     },
 ]
 
-ALLOWED_HOSTS = ['local.rentwise.herokuapp.com', '128.0.0.1',]
+ALLOWED_HOSTS = ['local.rentwise.herokuapp.com', '128.0.0.1', ]
+
+SITE_ID = 1

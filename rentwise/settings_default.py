@@ -133,7 +133,7 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SITE_ID = '1'
+SITE_ID = 1
 
 # Facebook app and auth settings
 SOCIAL_AUTH_FACEBOOK_KEY = '191007684701647'

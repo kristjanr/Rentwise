@@ -10,7 +10,7 @@ def insert_sites(apps, schema_editor):
     Site.objects.all().delete()
 
     # Register SITE_ID = 1
-    Site.objects.create(id=1, domain='http://local.rentwise.herokuapp.com:8000/', name='YBuy')
+    Site.objects.create(id=1, domain='local.rentwise.herokuapp.com', name='YBuy local')
 
 
 class Migration(migrations.Migration):

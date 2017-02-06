@@ -9,13 +9,12 @@ def insert_sites(apps, schema_editor):
     Site = apps.get_model('sites', 'Site')
     Site.objects.all().delete()
 
-    # Register SITE_ID = 1
-    Site.objects.create(id=1, domain='localhost:8000', name='Agentizer')
+    Site.objects.create(id=2, domain='rentwise.herokuapp.com', name='YBuy')
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('sites', '0001_initial'),
+        ('sites', '0003_auto_20170109_1752'),
     ]
 
     operations = [
